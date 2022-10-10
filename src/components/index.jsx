@@ -1,1 +1,2 @@
-export { default as LandingPage } from "./LandingPage/LangingPage";
+export { default as PublicLayout } from "./PublicLayout"
+export { default as InputField } from "./inputField"
