@@ -1,10 +1,57 @@
+import { useState } from "react"
 import { PublicLayout } from "components"
 import { Link } from "react-router-dom"
+import { axiosRequest } from "api"
+import swal from "sweetalert2"
+
+// components
+import { InputField } from "components"
+
+const initialState = {
+  email: "",
+  password: "",
+}
 
 export default function Login() {
+  const [{ email, password }, setState] = useState(initialState)
+
+  const onChange = (event) => {
+    const { name, value } = event.target
+    setState((prevState) => ({ ...prevState, [name]: value }))
+  }
+
+  const onSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const datas = { email, password }
+      // add api here
+      const response = await axiosRequest.post("", datas)
+
+      const { status } = response
+
+      if (status === 201) {
+        swal.fire({
+          title: "Successfully login",
+          text: "click ok to continue",
+          icon: "success",
+        })
+      }
+    } catch (error) {
+      const { status } = error.response
+
+      if (status === 404) {
+        swal.fire({
+          title: "Oops!!",
+          text: "something went wrong, please try again :(",
+          icon: "warning",
+        })
+      }
+    }
+  }
+
   return (
     <PublicLayout svgImage="images/Login_SVG.svg">
-      <form>
+      <form onSubmit={(event) => onSubmit(event)}>
         <div className="py-8">
           <h1 className="text-4xl font-bold text-amber-600 my-2">
             Welcome Back!
@@ -15,37 +62,30 @@ export default function Login() {
         </div>
 
         <div class="mb-6">
-          <input
+          <InputField
             type="text"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
+            name="email"
+            value={email}
+            onChange={(event) => onChange(event)}
             id="exampleFormControlInput2"
             placeholder="Email address"
+            required
           />
         </div>
 
         <div class="mb-6">
-          <input
+          <InputField
             type="password"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
+            name="password"
+            value={password}
+            onChange={(event) => onChange(event)}
             id="exampleFormControlInput2"
             placeholder="Password"
+            required
           />
         </div>
 
-        <div class="flex justify-between items-center mb-6">
-          <div class="form-group form-check">
-            <input
-              type="checkbox"
-              class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-amber-600 checked:border-amber-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-              id="exampleCheck2"
-            />
-            <label
-              class="form-check-label inline-block text-gray-800"
-              for="exampleCheck2"
-            >
-              Remember me
-            </label>
-          </div>
+        <div class="text-right mb-6">
           <a href="#!" class="text-gray-800">
             Forgot password?
           </a>
@@ -53,7 +93,7 @@ export default function Login() {
 
         <div class="text-center lg:text-left">
           <button
-            type="button"
+            type="submit"
             class="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
           >
             Login

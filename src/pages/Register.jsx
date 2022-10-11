@@ -1,14 +1,80 @@
-import React from "react"
+import { useState } from "react"
 import { PublicLayout } from "components"
+import { axiosRequest } from "api"
+import swal from "sweetalert2"
+
+// components
+import { InputField, SelectDropdown, Back } from "components"
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  address: "",
+  age: "",
+  gender: "",
+  userType: "",
+  password: "",
+}
 
 export default function Register() {
+  const [
+    { firstName, lastName, email, address, age, gender, userType, password },
+    setState,
+  ] = useState(initialState)
+
+  const onChange = (event) => {
+    const { name, value } = event.target
+    setState((prevState) => ({ ...prevState, [name]: value }))
+  }
+
+  const onSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const datas = {
+        firstName,
+        lastName,
+        email,
+        address,
+        age,
+        gender,
+        userType,
+        password,
+      }
+
+      // add api here
+      const response = await axiosRequest.post("", datas)
+
+      const { status } = response
+
+      if (status === 201) {
+        swal.fire({
+          title: "Successfully login",
+          text: "click ok to continue",
+          icon: "success",
+        })
+      }
+    } catch (error) {
+      const { status } = error.response
+
+      if (status === 404) {
+        swal.fire({
+          title: "Oops!!",
+          text: "something went wrong, please try again :(",
+          icon: "warning",
+        })
+      }
+    }
+  }
+
   /**
-   * input field and select field should be reusable
+   * InputField field and select field should be reusable
    */
 
   return (
     <PublicLayout svgImage="images/Register_SVG.svg">
-      <form>
+      <Back to="/" />
+      <form onSubmit={(event) => onSubmit(event)}>
         <div className="py-8">
           <h1 className="text-4xl font-bold text-amber-600 my-2">
             Register Account
@@ -19,69 +85,87 @@ export default function Register() {
         </div>
 
         <div class="mb-6 grid grid-cols-2 gap-2">
-          <input
+          <InputField
             type="text"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
-            id="exampleFormControlInput2"
+            name="firstName"
+            value={firstName}
+            onChange={(event) => onChange(event)}
             placeholder="Firstname"
+            required
           />
-          <input
+          <InputField
             type="text"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
-            id="exampleFormControlInput2"
+            name="lastName"
+            value={lastName}
+            onChange={(event) => onChange(event)}
             placeholder="Lastname"
+            required
+          />
+        </div>
+
+        <div className="mb-6">
+          <InputField
+            type="email"
+            name="email"
+            value={email}
+            onChange={(event) => onChange(event)}
+            placeholder="email"
+            required
           />
         </div>
 
         <div class="mb-6 grid grid-cols-2 gap-2">
-          <input
+          <InputField
             type="text"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
-            id="exampleFormControlInput2"
+            name="address"
+            value={address}
+            onChange={(event) => onChange(event)}
             placeholder="Address"
+            required
           />
-          <input
+          <InputField
             type="number"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
-            id="exampleFormControlInput2"
+            name="age"
+            value={age}
+            onChange={(event) => onChange(event)}
             placeholder="Age"
+            required
           />
         </div>
 
         <div className="mb-6 grid grid-cols-2 gap-2">
-          <select
-            id="countries"
-            class="mt-2 bg-white-50 border border-white-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 white:bg-gray-700 white:border-gray-600 white:placeholder-gray-400 text-black white:focus:ring-blue-500 white:focus:border-blue-500"
-          >
+          <SelectDropdown name="gender" onChange={(event) => onChange(event)}>
             <option selected disabled>
               Choose a gender
             </option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
-          </select>
-          <select
-            id="countries"
-            class="mt-2 bg-white-50 border border-white-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 white:bg-gray-700 white:border-gray-600 white:placeholder-gray-400 text-black white:focus:ring-blue-500 white:focus:border-blue-500"
-          >
+          </SelectDropdown>
+
+          <SelectDropdown name="userType" onChange={(event) => onChange(event)}>
             <option disabled selected>
               Choose a user type
             </option>
-            <option value="Male">Seller</option>
-            <option value="Female">Buyer</option>
-          </select>
+            <option value="Seller">Seller</option>
+            <option value="Buyer">Buyer</option>
+          </SelectDropdown>
         </div>
 
         <div className="mb-6">
-          <input
+          <InputField
             type="password"
+            name="password"
+            value={password}
+            onChange={(event) => onChange(event)}
             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
             placeholder="Password"
+            required
           />
         </div>
 
         <div class="text-center lg:text-left">
           <button
-            type="button"
+            type="submit"
             class="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
           >
             Register
