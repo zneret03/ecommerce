@@ -36,8 +36,8 @@ export default function Login() {
           icon: "success",
         })
       }
-      
-      // this doesnt work btw. 
+
+      // this doesnt work btw.
       if (status === 401) {
         swal.fire({
           title: "Email or password is incorrect!",
@@ -47,6 +47,14 @@ export default function Login() {
       }
     } catch (error) {
       const { status } = error.response
+
+      if (status === 500) {
+        swal.fire({
+          title: "Oops!! Error 500",
+          text: "server not found",
+          icon: "warning",
+        })
+      }
 
       if (status === 404) {
         swal.fire({

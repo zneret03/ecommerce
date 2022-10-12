@@ -57,6 +57,14 @@ export default function Register() {
     } catch (error) {
       const { status } = error.response
 
+      if (status === 500) {
+        swal.fire({
+          title: "Oops!! Error 500",
+          text: "server not found",
+          icon: "warning",
+        })
+      }
+
       if (status === 404) {
         swal.fire({
           title: "Oops!!",
