@@ -43,13 +43,13 @@ export default function Register() {
       }
 
       // add api here
-      const response = await axiosRequest.post("", datas)
+      const response = await axiosRequest.post("/api/v1/signup", datas)
 
       const { status } = response
 
       if (status === 201) {
         swal.fire({
-          title: "Successfully login",
+          title: "Successfully Signup",
           text: "click ok to continue",
           icon: "success",
         })

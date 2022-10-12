@@ -25,15 +25,24 @@ export default function Login() {
     try {
       const datas = { email, password }
       // add api here
-      const response = await axiosRequest.post("", datas)
+      const response = await axiosRequest.post("/api/v1/login", datas)
 
       const { status } = response
 
-      if (status === 201) {
+      if (status === 200) {
         swal.fire({
           title: "Successfully login",
           text: "click ok to continue",
           icon: "success",
+        })
+      }
+      
+      // this doesnt work btw. 
+      if (status === 401) {
+        swal.fire({
+          title: "Email or password is incorrect!",
+          text: "Please love me again...",
+          icon: "warning",
         })
       }
     } catch (error) {
