@@ -10,10 +10,11 @@ import { InputField } from "components"
 const initialState = {
   email: "",
   password: "",
+  rememberMe: false,
 }
 
 export default function Login() {
-  const [{ email, password }, setState] = useState(initialState)
+  const [{ email, password, rememberMe }, setState] = useState(initialState)
 
   const onChange = (event) => {
     const { name, value } = event.target
@@ -23,7 +24,7 @@ export default function Login() {
   const onSubmit = async (event) => {
     event.preventDefault()
     try {
-      const datas = { email, password }
+      const datas = { email, password, rememberMe }
       // add api here
       const response = await axiosRequest.post("/api/v1/login", datas)
 

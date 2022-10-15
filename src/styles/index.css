@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
+  color: #eb4800;
+  font-weight: bold;
+}
+
+.css-1ycxvqq-MuiSwitch-root {
+  color: #eb4800;
+  font-weight: bold;
+}
+
+.PrivateSwitchBase-input {
+  color: #eb4800;
+}

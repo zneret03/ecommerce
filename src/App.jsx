@@ -4,11 +4,11 @@ import {
   Register,
   SellerDashboard,
   Category,
-  Inventory,
   Orders,
   Products,
   StockManagement,
   Shop,
+  AddProducts,
 } from "pages"
 
 function App() {
@@ -21,10 +21,10 @@ function App() {
         {/**Admin pages */}
         <Route exact path="/admin" element={<SellerDashboard />} />
         <Route exact path="/category" element={<Category />} />
-        <Route exact path="/inventory" element={<Inventory />} />
         <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/stockManagement" element={<StockManagement />} />
+        <Route exact path="/addProducts" element={<AddProducts />} />
 
         {/**Buyer pages */}
         <Route exact path="/shop" element={<Shop />} />

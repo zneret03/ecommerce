@@ -1,4 +1,4 @@
-import { Home, User, Archive, Folder, ShoppingCart, Box } from "react-feather"
+import { Home, File, Archive, ShoppingCart, Box } from "react-feather"
 
 const iconSize = 18
 
@@ -16,16 +16,10 @@ const sidebarList = [
     path: "/stockManagement",
   },
   {
-    id: 2,
-    title: "Manage Category",
-    icon: <User size={iconSize} />,
-    path: "/category",
-  },
-  {
     id: 3,
-    title: "Inventory",
-    icon: <Folder size={iconSize} />,
-    path: "/inventory",
+    title: "Manage Category",
+    icon: <File size={iconSize} />,
+    path: "/category",
   },
   {
     id: 4,
