@@ -45,13 +45,30 @@ export default function Category() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setRows(result.data);
-        },
-      )
+    const getCategories= async() => {
+      try {
+          const response = await axiosRequest.get(url)
+
+          const { status, data } = response
+
+          if (status === 200) {
+            setRows(data.data)
+          }
+
+      } catch (error) {
+        const { status } = error.response
+
+        if (status === 500) {
+          swal.fire({
+            title: "Oops!! Error 500",
+            text: "server not found",
+            icon: "warning",
+          })
+        }
+      }
+    }
+
+    getCategories()
   }, [])
 
   const removeRow = (id) => {
