@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import {
   Login,
+  Logout,
+  NotFound,
   Register,
   SellerDashboard,
   Category,
@@ -17,6 +19,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/logout" element={<Logout />} />
+        <Route exact path="/404" element={<NotFound />}/>
 
         {/**Admin pages */}
         <Route exact path="/admin" element={<SellerDashboard />} />

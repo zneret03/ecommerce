@@ -1,4 +1,4 @@
-import { Home, File, Archive, ShoppingCart, Box } from "react-feather"
+import { Home, File, Archive, ShoppingCart, Box, LogOut } from "react-feather"
 
 const iconSize = 18
 
@@ -32,6 +32,12 @@ const sidebarList = [
     title: "Products",
     icon: <Box size={iconSize} />,
     path: "/products",
+  },
+  {
+    id: 6,
+    title: "Logout",
+    icon: <LogOut size={iconSize} />,
+    path: "/logout"
   },
 ]
 

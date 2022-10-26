@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { PublicLayout } from "components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
 
@@ -14,6 +14,8 @@ const initialState = {
 }
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [{ email, password, rememberMe }, setState] = useState(initialState)
 
   const onChange = (event) => {
@@ -28,24 +30,19 @@ export default function Login() {
       // add api here
       const response = await axiosRequest.post("/api/v1/login", datas)
 
-      const { status } = response
+      const { status, data } = response
 
       if (status === 200) {
-        swal.fire({
-          title: "Successfully login",
-          text: "click ok to continue",
-          icon: "success",
-        })
+        console.log(data.data)
+        if (data.data.userType === 'Seller') {
+          navigate('/admin')
+        }
+        
+        if (data.data.userType === 'Buyer') {
+          navigate('/shop')
+        }
       }
 
-      // this doesnt work btw.
-      if (status === 401) {
-        swal.fire({
-          title: "Email or password is incorrect!",
-          text: "Please love me again...",
-          icon: "warning",
-        })
-      }
     } catch (error) {
       const { status } = error.response
 
@@ -61,6 +58,14 @@ export default function Login() {
         swal.fire({
           title: "Oops!!",
           text: "something went wrong, please try again :(",
+          icon: "warning",
+        })
+      }
+
+      if (status === 401) {
+        swal.fire({
+          title: "Email or password is incorrect!",
+          text: "Please love me again...",
           icon: "warning",
         })
       }
