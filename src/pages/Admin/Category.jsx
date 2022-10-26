@@ -1,75 +1,135 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import useToggle from "hooks/useToggle"
-import { TextField } from "@mui/material"
+import { TextField, Button } from "@mui/material"
 import { PrivateLayout, Table, MyModal } from "components"
+import { axiosRequest } from "api"
+import swal from "sweetalert2"
 
 export default function Category() {
   const [category, setCategory] = useState("")
   const [toggle, isToggle] = useToggle()
 
+  const url = "/api/v1/shop/category";
+
   const columns = [
-    { field: "id", headerName: "ID", width: 200 },
+    { field: "id", headerName: "ID", width: 200},
     {
       field: "categoryName",
       headerName: "Category Name",
-      width: 250,
-      editable: true,
+      width: 300,
     },
     {
       field: "dateCreated",
       headerName: "Date Created",
-      width: 250,
-      editable: true,
+      width: 350,
     },
     {
-      field: "dateUpdated",
-      headerName: "Date Updated",
-      width: 250,
-      editable: true,
-    },
+      field: "deleteButton",
+      headerName: "Action",
+      sortable: false,
+      width: 160,
+      renderCell: (params) => {
+        return (
+          <Button
+            onClick={(e) => onButtonClick(e, params.row)}
+            variant="contained"
+            color="error"
+          >
+            Delete
+          </Button>
+        );
+      }
+    }
   ]
 
-  const rows = [
-    {
-      id: 1,
-      categoryName: "Jeans",
-      dateCreated: "2022/01/05",
-      dateUpdated: "2022/01/07",
-    },
-    {
-      id: 2,
-      categoryName: "Jeans",
-      dateCreated: "2022/01/05",
-      dateUpdated: "2022/01/07",
-    },
-    {
-      id: 3,
-      categoryName: "Jeans",
-      dateCreated: "2022/01/05",
-      dateUpdated: "2022/01/07",
-    },
-    {
-      id: 4,
-      categoryName: "Jeans",
-      dateCreated: "2022/01/05",
-      dateUpdated: "2022/01/07",
-    },
-    {
-      id: 5,
-      categoryName: "Jeans",
-      dateCreated: "2022/01/05",
-      dateUpdated: "2022/01/07",
-    },
-  ]
+  const [rows, setRows] = useState([]);
 
-  const onSubmit = (event) => {
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setRows(result.data);
+        },
+      )
+  }, [])
+
+  const removeRow = (id) => {
+    const newRow = rows.filter((rows) => rows.id !== id);
+ 
+    setRows( newRow );
+  };
+
+  
+  const onButtonClick = async(e, row) => {
+    e.stopPropagation();
+
+    try {
+      const response = await axiosRequest.delete(`${url}/${row.id}`)
+
+      const { status } = response
+
+      if (status === 200) {
+        removeRow(row.id)
+      }
+     
+    } catch (error) {
+      const { status } = error.response
+      if (status === 500) {
+        swal.fire({
+          title: "Oops!! Error 500",
+          text: "server not found",
+          icon: "warning",
+        })
+      }
+    }
+  };
+
+  const onSubmit = async(event) => {
     event.preventDefault()
     const config = {
       categoryName: category,
-      dateCreated: new Date(),
     }
 
-    console.log(config)
+    try {
+      const response = await axiosRequest.post(url, config)
+
+      const { status, data} = response
+
+      isToggle()
+      
+      if (status === 201) {
+        swal.fire({
+          title: "Successfully created",
+          text: "click ok to continue",
+          icon: "success",
+        })
+      }
+
+      const updated_rows = [...rows, data.data]
+      setRows(updated_rows)
+
+    } catch (error) {
+      const { status } = error.response
+
+      isToggle()
+
+      if (status === 500) {
+        swal.fire({
+          title: "Oops!! Error 500",
+          text: "server not found",
+          icon: "warning",
+        })
+      }
+
+      if (status === 409) {
+        swal.fire({
+          title: "Error",
+          text: "Category already exists!",
+          icon: "warning",
+        })
+      }
+    }
   }
 
   const addCategoryModal = (
@@ -114,7 +174,7 @@ export default function Category() {
           onClick={isToggle}
           className="bg-amber-600 hover:bg-amber-500 text-white py-1 px-4 mb-5 rounded-sm"
         >
-          <span>add category</span>
+          <span>ADD CATEGORY</span>
         </button>
       </div>
       <Table data={rows} columns={columns} loading={false} />
