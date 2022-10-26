@@ -72,6 +72,14 @@ export default function Register() {
           icon: "warning",
         })
       }
+
+      if (status === 409) {
+        swal.fire({
+          title: "Error",
+          text: "Email already taken!",
+          icon: "warning",
+        })
+      }
     }
   }
 
