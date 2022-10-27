@@ -89,7 +89,7 @@ export default function Register() {
 
   return (
     <PublicLayout svgImage="images/Register_SVG.svg">
-      <Back to="/" />
+      <Back to="/login" />
       <form onSubmit={(event) => onSubmit(event)}>
         <div className="py-8">
           <h1 className="text-4xl font-bold text-amber-600 my-2">
