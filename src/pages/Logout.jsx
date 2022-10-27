@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 
 export default function Logout() {
     const url = "/api/v1/logout";
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,10 +15,10 @@ export default function Logout() {
                 const { status } = response
     
                 if (status === 200) {
-                    navigate('/')
+                    navigate('/login')
                 }
             } catch (e) {
-                navigate('/')
+                navigate('/login')
             }
         }
 

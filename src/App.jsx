@@ -9,15 +9,16 @@ import {
   Orders,
   Products,
   StockManagement,
-  Shop,
   AddProducts,
+  Home,
 } from "pages"
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Login />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/logout" element={<Logout />} />
         <Route exact path="/404" element={<NotFound />}/>
@@ -30,8 +31,6 @@ function App() {
         <Route exact path="/stockManagement" element={<StockManagement />} />
         <Route exact path="/addProducts" element={<AddProducts />} />
 
-        {/**Buyer pages */}
-        <Route exact path="/shop" element={<Shop />} />
       </Routes>
     </Router>
   )

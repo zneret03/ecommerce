@@ -27,22 +27,19 @@ export default function Login() {
     event.preventDefault()
     try {
       const datas = { email, password, rememberMe }
-      // add api here
       const response = await axiosRequest.post("/api/v1/login", datas)
 
       const { status, data } = response
 
       if (status === 200) {
-        console.log(data.data)
         if (data.data.userType === 'Seller') {
           navigate('/admin')
         }
         
         if (data.data.userType === 'Buyer') {
-          navigate('/shop')
+          navigate('/')
         }
       }
-
     } catch (error) {
       const { status } = error.response
 

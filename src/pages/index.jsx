@@ -12,4 +12,4 @@ export { default as StockManagement } from "./Admin/StockManagement"
 export { default as AddProducts } from "./Admin/AddProducts"
 
 //Buyer Pages
-export { default as Shop } from "./Buyer/Shop"
+export { default as Home} from "./Buyer/home"
