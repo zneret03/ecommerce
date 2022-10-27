@@ -1,19 +1,40 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { PrivateLayout, Table } from "components"
 
 export default function Products() {
+
+  const url = "/api/v1/admin/product";
+
+  // from react docs: request on load 
+  const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setData(result.data);
+        },
+        (error) => {
+          setError(error);
+        }
+      )
+  }, [])
+
+  const rows = data
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "title",
-      headerName: "Title",
+      field: "productName",
+      headerName: "Product Name",
       width: 150,
       editable: true,
     },
     {
-      field: "productName",
-      headerName: "Product Name",
+      field: "description",
+      headerName: "Description",
       width: 150,
       editable: true,
     },
@@ -25,8 +46,8 @@ export default function Products() {
       editable: true,
     },
     {
-      field: "quantity",
-      headerName: "Quantity",
+      field: "category",
+      headerName: "Category",
       type: "number",
       width: 150,
       editable: true,
@@ -34,6 +55,13 @@ export default function Products() {
     {
       field: "gender",
       headerName: "Gender",
+      type: "string",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
       type: "string",
       width: 150,
       editable: true,
@@ -47,81 +75,6 @@ export default function Products() {
     //   valueGetter: (params) =>
     //     `${params.row.productName || ""} ${params.row.title || ""}`,
     // },
-  ]
-
-  const rows = [
-    {
-      id: 1,
-      title: "Snow",
-      productName: "Jon",
-      price: 35,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 2,
-      title: "Lannister",
-      productName: "Cersei",
-      price: 42,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 3,
-      title: "Lannister",
-      productName: "Jaime",
-      price: 45,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 4,
-      title: "Stark",
-      productName: "Arya",
-      price: 16,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 5,
-      title: "Targaryen",
-      productName: "Daenerys",
-      price: 323,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 6,
-      title: "Melisandre",
-      productName: null,
-      price: 150,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 7,
-      title: "Clifford",
-      productName: "Ferrara",
-      price: 44,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 8,
-      title: "Frances",
-      productName: "Rossini",
-      price: 36,
-      quantity: 5,
-      gender: "Male",
-    },
-    {
-      id: 9,
-      title: "Roxie",
-      productName: "Harvey",
-      price: 65,
-      quantity: 5,
-      gender: "Male",
-    },
   ]
 
   return (
