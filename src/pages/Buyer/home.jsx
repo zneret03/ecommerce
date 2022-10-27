@@ -13,27 +13,31 @@ export default function Home() {
     const getUser = async() => {
       try {
           const response = await axiosRequest.get(url)
-
+  
           const { status, data } = response
-
+          const userData = data.data
           if (status === 200) {
-            if (data.data.user_type === 'Seller') {
+            if ( userData.userType === 'Seller') {
               navigate('/admin')
             }
-            setUser(data.data)
+            setUser(userData)
             setLoad(true)
           }
-
+  
       } catch (e) {
         const { status} = e.response
         if (status === 401) {
           navigate('/login')
         }
+  
+        if (status === 500) {
+          navigate('/404')
+        }
       }
     }
 
-    getUser()
-  }, [])
+    getUser();
+  }, [navigate])
   
   if(isLoaded) {
     return (<div>
