@@ -66,19 +66,34 @@ export default function AddProducts() {
   }
 
   useEffect(() => {
+    let ignore = false
+
     const getCategory = async () => {
       try {
         const response = await axiosRequest.get(url)
 
         const { status, data } = response
-
-        if (status === 200) {
-          const { categoryList, genderList } = data.data
-
-          setCategoryOptions(categoryList)
-          setGenderOptions(genderList)
+        if (!ignore) {
+          if (status === 200) {
+            const { categoryList, genderList } = data.data
+  
+            setCategoryOptions(categoryList)
+            setGenderOptions(genderList)
+          }
+  
+          if (status === 204) {
+            swal.fire({
+              title: "No category available",
+              text: "Please add a category first",
+              icon: "warning",
+            }).then((result) => {
+              if(result.isConfirmed) {
+                navigate('/category')
+              }
+            })
+          }
         }
-
+        
       } catch (e) {
         const { status } = e.response
         console.log(status)
@@ -86,7 +101,11 @@ export default function AddProducts() {
     }
 
     getCategory()
-  }, [])
+
+    return () => {
+      ignore = true
+    }
+  }, [navigate])
 
   return (
     <PrivateLayout
