@@ -17,7 +17,7 @@ const initialState = {
 export default function AddProducts() {
   const url = '/api/v1/product/category'
   const prod_url = '/api/v1/admin/product'
-  
+
   const navigate = useNavigate();
 
   const [
@@ -43,7 +43,7 @@ export default function AddProducts() {
       category,
       quantity
     }
-    
+
     try {
       const response = await axiosRequest.post(prod_url, datas)
       const { status } = response
@@ -54,7 +54,7 @@ export default function AddProducts() {
           text: "click ok to continue",
           icon: "success",
         }).then((result) => {
-          if(result.isConfirmed) {
+          if (result.isConfirmed) {
             navigate('/products')
           }
         })
@@ -69,34 +69,35 @@ export default function AddProducts() {
     let ignore = false
 
     const getCategory = async () => {
-      try {
-        const response = await axiosRequest.get(url)
+      if (!ignore) {
+        try {
+          const response = await axiosRequest.get(url)
 
-        const { status, data } = response
-        if (!ignore) {
+          const { status, data } = response
+
           if (status === 200) {
             const { categoryList, genderList } = data.data
-  
+
             setCategoryOptions(categoryList)
             setGenderOptions(genderList)
           }
-  
+
           if (status === 204) {
             swal.fire({
               title: "No category available",
               text: "Please add a category first",
               icon: "warning",
             }).then((result) => {
-              if(result.isConfirmed) {
+              if (result.isConfirmed) {
                 navigate('/category')
               }
             })
           }
         }
-        
-      } catch (e) {
-        const { status } = e.response
-        console.log(status)
+        catch (e) {
+          const { status } = e.response
+          console.log(status)
+        }
       }
     }
 
