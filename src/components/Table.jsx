@@ -20,12 +20,12 @@ function CustomToolbar() {
 
 export default function Table({ data, columns, loading }) {
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 500, width: "100%" }}>
       <DataGrid
         rows={data}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={6}
+        rowsPerPageOptions={[6]}
         // checkboxSelection
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
