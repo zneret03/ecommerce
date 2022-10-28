@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Button } from "@mui/material"
+import { Button} from "@mui/material"
+import { Trash, Edit } from "react-feather"
 import { PrivateLayout, Table } from "components"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
@@ -10,15 +11,15 @@ export default function Products() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    const getProducts= async() => {
+    const getProducts = async () => {
       try {
-          const response = await axiosRequest.get(url)
+        const response = await axiosRequest.get(url)
 
-          const { status, data } = response
+        const { status, data } = response
 
-          if (status === 200) {
-            setRows(data.data)
-          }
+        if (status === 200) {
+          setRows(data.data)
+        }
 
       } catch (error) {
         const { status } = error.response
@@ -28,6 +29,46 @@ export default function Products() {
 
     getProducts()
   }, [])
+
+  const removeRow = (id) => {
+    const newRow = rows.filter((rows) => rows.id !== id);
+
+    setRows(newRow);
+  };
+
+  const deleteProduct = async (e, row) => {
+    e.preventDefault()
+    swal.fire({
+      title: "Confirm action",
+      text: `Delete ${row.productName}?`,
+      icon: "warning",
+      showCancelButton: true,
+      showCloseButton: true,
+      focusConfirm: false,
+    }).then(async (res) => {
+
+      if (res.isConfirmed) {
+        try {
+          const response = await axiosRequest.delete(`${url}/${row.id}`)
+
+          const { status } = response
+          if (status === 200) {
+            removeRow(row.id)
+          }
+
+        } catch (error) {
+          const { status } = error.response
+          if (status === 500) {
+            swal.fire({
+              title: "Oops!! Error 500",
+              text: "server not found",
+              icon: "warning",
+            })
+          }
+        }
+      }
+    })
+  }
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -47,28 +88,28 @@ export default function Products() {
       field: "price",
       headerName: "Price",
       type: "number",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "category",
-      headerName: "Category",
-      type: "number",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "gender",
-      headerName: "Gender",
-      type: "string",
-      width: 150,
+      width: 100,
       editable: true,
     },
     {
       field: "quantity",
       headerName: "Quantity",
       type: "number",
-      width: 150,
+      width: 100,
+      editable: true,
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      type: "string",
+      width: 120,
+      editable: true,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      type: "string",
+      width: 100,
       editable: true,
     },
     {
@@ -86,52 +127,31 @@ export default function Products() {
       editable: true,
     },
     {
-      field: "deleteButton",
+      field: "Button",
       headerName: "Action",
       sortable: false,
-      width: 160,
+      width: 150,
       renderCell: (params) => {
         return (
-          <Button
-            onClick={(e) => deleteCategory(e, params.row)}
-            variant="contained"
+        <div className="grid grid-cols-2">
+          <Link to={`/updateProducts/${params.row.id}`}>
+            <Button
+              color="primary"
+            >
+              <Edit />
+            </Button>
+          </Link>
+           <Button
+            onClick={(e) => deleteProduct(e, params.row)}
             color="error"
           >
-            Delete
+            <Trash />
           </Button>
+        </div>
         );
       }
     }
   ]
-
-  const removeRow = (id) => {
-    const newRow = rows.filter((rows) => rows.id !== id);
- 
-    setRows( newRow );
-  };
-
-  const deleteCategory = async(e, row) => {
-    e.preventDefault()
-
-    try {
-      const response = await axiosRequest.delete(`${url}/${row.id}`)
-      console.log(response.status)
-      const { status } = response
-      if (status === 200) {
-        removeRow(row.id)
-      }
-
-    } catch (error) {
-      const { status } = error.response
-      if (status === 500) {
-        swal.fire({
-          title: "Oops!! Error 500",
-          text: "server not found",
-          icon: "warning",
-        })
-      }
-    }
-  }
 
   return (
     <PrivateLayout
@@ -143,7 +163,7 @@ export default function Products() {
           type="button"
           className="bg-amber-600 hover:bg-amber-500 text-white py-1 px-4 mb-5 rounded-sm"
         >
-          <span>add product</span>
+          <span>ADD PRODUCT</span>
         </button>
       </Link>
       <Table data={rows} columns={columns} loading={false} />
