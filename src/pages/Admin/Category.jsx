@@ -12,7 +12,7 @@ export default function Category() {
   const url = "/api/v1/shop/category";
 
   const columns = [
-    { field: "id", headerName: "ID", width: 200},
+    { field: "id", headerName: "ID", width: 200 },
     {
       field: "categoryName",
       headerName: "Category Name",
@@ -45,15 +45,15 @@ export default function Category() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    const getCategories= async() => {
+    const getCategories = async () => {
       try {
-          const response = await axiosRequest.get(url)
+        const response = await axiosRequest.get(url)
 
-          const { status, data } = response
+        const { status, data } = response
 
-          if (status === 200) {
-            setRows(data.data)
-          }
+        if (status === 200) {
+          setRows(data.data)
+        }
 
       } catch (error) {
         const { status } = error.response
@@ -73,12 +73,12 @@ export default function Category() {
 
   const removeRow = (id) => {
     const newRow = rows.filter((rows) => rows.id !== id);
- 
-    setRows( newRow );
+
+    setRows(newRow);
   };
 
-  
-  const onButtonClick = async(e, row) => {
+
+  const onButtonClick = async (e, row) => {
     e.stopPropagation();
 
     try {
@@ -89,20 +89,20 @@ export default function Category() {
       if (status === 200) {
         removeRow(row.id)
       }
-     
+
     } catch (error) {
       const { status } = error.response
-      if (status === 500) {
+      if (status === 409) {
         swal.fire({
-          title: "Oops!! Error 500",
-          text: "server not found",
+          title: "Cannot delete this category!",
+          text: "Category is being used by some products",
           icon: "warning",
         })
       }
     }
   };
 
-  const onSubmit = async(event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
     const config = {
       categoryName: category,
@@ -111,21 +111,22 @@ export default function Category() {
     try {
       const response = await axiosRequest.post(url, config)
 
-      const { status, data} = response
+      const { status, data } = response
 
       isToggle()
-      
+
       if (status === 201) {
         swal.fire({
           title: "Successfully created",
           text: "click ok to continue",
           icon: "success",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            const updated_rows = [...rows, data.data]
+            setRows(updated_rows)
+          }
         })
       }
-
-      const updated_rows = [...rows, data.data]
-      setRows(updated_rows)
-
     } catch (error) {
       const { status } = error.response
 
