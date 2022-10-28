@@ -10,6 +10,7 @@ import {
   Products,
   StockManagement,
   AddProducts,
+  UpdateProducts,
   Home,
 } from "pages"
 
@@ -29,7 +30,8 @@ function App() {
         <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/stockManagement" element={<StockManagement />} />
-        <Route exact path="/addProducts" element={<AddProducts />} />
+        <Route exact path="/addProducts/" element={<AddProducts />} />
+        <Route exact path="/updateProducts/:id" element={<UpdateProducts />} />
 
       </Routes>
     </Router>

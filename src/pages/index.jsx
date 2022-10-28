@@ -10,6 +10,7 @@ export { default as Orders } from "./Admin/Orders"
 export { default as Products } from "./Admin/Products"
 export { default as StockManagement } from "./Admin/StockManagement"
 export { default as AddProducts } from "./Admin/AddProducts"
+export { default as UpdateProducts } from "./Admin/UpdateProducts"
 
 //Buyer Pages
 export { default as Home} from "./Buyer/home"
