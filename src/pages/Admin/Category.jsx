@@ -4,6 +4,7 @@ import { TextField, Button } from "@mui/material"
 import { PrivateLayout, Table, MyModal } from "components"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
+import { Trash, Edit } from "react-feather"
 
 export default function Category() {
   const [category, setCategory] = useState("")
@@ -16,12 +17,17 @@ export default function Category() {
     {
       field: "categoryName",
       headerName: "Category Name",
-      width: 300,
+      width: 250,
     },
     {
       field: "dateCreated",
       headerName: "Date Created",
-      width: 350,
+      width: 250,
+    },
+    {
+      field: "dateUpdated",
+      headerName: "Date Updated",
+      width: 250,
     },
     {
       field: "deleteButton",
@@ -30,14 +36,21 @@ export default function Category() {
       width: 160,
       renderCell: (params) => {
         return (
-          <Button
-            onClick={(e) => onButtonClick(e, params.row)}
-            variant="contained"
-            color="error"
-          >
-            Delete
-          </Button>
-        );
+          <div className="grid grid-cols-2">
+            <Button
+              onClick={(e) => updateCategory(e, params.row)}
+              color="primary"
+            >
+              <Edit />
+            </Button>
+            <Button
+              onClick={(e) => deleteCategory(e, params.row)}
+              color="error"
+            >
+              <Trash />
+            </Button>
+          </div>
+        )
       }
     }
   ]
@@ -77,30 +90,82 @@ export default function Category() {
     setRows(newRow);
   };
 
-
-  const onButtonClick = async (e, row) => {
+  const updateCategory = async(e, row) => {
     e.stopPropagation();
 
-    try {
-      const response = await axiosRequest.delete(`${url}/${row.id}`)
-
-      const { status } = response
-
-      if (status === 200) {
-        removeRow(row.id)
+    const {value: updatedCategory} = await swal.fire({
+      title: 'Update Category',
+      input: 'text',
+      inputValue: row.categoryName,
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if(!value) {
+          return 'You need to write something!'
+        }
+        if(value===row.categoryName) {
+          return 'You need to write something!'
+        }
       }
+    })
 
-    } catch (error) {
-      const { status } = error.response
-      if (status === 409) {
-        swal.fire({
-          title: "Cannot delete this category!",
-          text: "Category is being used by some products",
-          icon: "warning",
-        })
+    if(updatedCategory) {
+      const config = {categoryName: updatedCategory}
+
+      try {
+        const response = await axiosRequest.post(`${url}/${row.id}`, config)
+        const { status, data } = response
+        if(status===200) {
+          const updated_rows = rows.map((row) => {
+            if (row.id === data.data.id) {
+              row.categoryName = data.data.categoryName
+              row.dateCreated = data.data.dateCreated
+              row.dateUpdated = data.data.dateCreated
+            }
+            return row
+          })
+          setRows(updated_rows)
+        }
+      }
+      catch (e){
+        console.log(e)
       }
     }
-  };
+  }
+
+  const deleteCategory = async (e, row) => {
+    e.stopPropagation();
+    swal.fire({
+      title: "Confirm action",
+      text: `Delete ${row.categoryName}?`,
+      icon: "warning",
+      showCancelButton: true,
+      showCloseButton: true,
+      focusConfirm: false,
+    }).then(async (res) => {
+
+      if (res.isConfirmed) {
+        try {
+          const response = await axiosRequest.delete(`${url}/${row.id}`)
+
+          const { status } = response
+
+          if (status === 200) {
+            removeRow(row.id)
+          }
+
+        } catch (error) {
+          const { status } = error.response
+          if (status === 409) {
+            swal.fire({
+              title: "Cannot delete this category!",
+              text: "Category is being used by some products",
+              icon: "warning",
+            })
+          }
+        }
+      }
+    })
+  }
 
   const onSubmit = async (event) => {
     event.preventDefault()
