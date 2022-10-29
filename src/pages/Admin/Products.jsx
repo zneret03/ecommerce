@@ -92,13 +92,6 @@ export default function Products() {
       editable: true,
     },
     {
-      field: "quantity",
-      headerName: "Quantity",
-      type: "number",
-      width: 100,
-      editable: true,
-    },
-    {
       field: "category",
       headerName: "Category",
       type: "string",
