@@ -43,7 +43,7 @@ export default function AddProducts() {
       category,
       quantity
     }
-
+    console.log(datas)
     try {
       const response = await axiosRequest.post(prod_url, datas)
       const { status } = response
@@ -152,18 +152,24 @@ export default function AddProducts() {
               </div>
 
               <div className="mb-6 grid grid-cols-2 gap-2">
-                <SelectDropdown defaultValue='Gender' name="gender" onChange={(event) => onChange(event)}>
+                <SelectDropdown name="gender" onChange={(event) => onChange(event)}>
+                  <option selected disabled>
+                    Gender
+                  </option>
                   {genderOptions.map((type) => {
                     return (
-                      <option key={type.id} value={type.gender}>{type.gender}</option>
+                      <option key={type.id} value={type.id}>{type.gender}</option>
                     )
                   })}
                 </SelectDropdown>
 
-                <SelectDropdown defaultValue='Category' name="category" onChange={(event) => onChange(event)}>
+                <SelectDropdown name="category" onChange={(event) => onChange(event)}>
+                  <option selected disabled>
+                    Category
+                  </option>
                   {categoryOptions.map((type) => {
                     return (
-                      <option key={type.id} value={type.categoryName}>{type.categoryName}</option>
+                      <option key={type.id} value={type.id}>{type.categoryName}</option>
                     )
                   })}
                 </SelectDropdown>
