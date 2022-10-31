@@ -25,6 +25,7 @@ export default function Table({ data, columns, loading }) {
         rows={data}
         columns={columns}
         pageSize={6}
+        getRowHeight={() => 'auto'}
         rowsPerPageOptions={[6]}
         // checkboxSelection
         disableSelectionOnClick
