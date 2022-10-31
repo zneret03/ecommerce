@@ -9,7 +9,6 @@ function SidebarProfile() {
     const url = '/api/v1/user/admin'
     const navigate = useNavigate();
 
-    // from react docs: request on load 
     useEffect(() => {
       const getUser = async() => {
         try {
@@ -27,7 +26,7 @@ function SidebarProfile() {
       }
 
       getUser()
-    }, [])
+    }, [navigate])
 
     return (
         <div className="text-center text-white flex flex-col items-center justify-center">
@@ -36,7 +35,7 @@ function SidebarProfile() {
             className="rounded-full w-44 h-44 border-2 border-gray-500 object-cover mb-4"
             alt=""
           />
-          <h1 className="font-bold">{user.first_name} {user.last_name}</h1>
+          <h1 className="font-bold">{user.firstName} {user.lastName}</h1>
           <h2 className="text-sm">{user.email}</h2>
         </div>
     )
