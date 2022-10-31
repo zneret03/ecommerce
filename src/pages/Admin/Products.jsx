@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Button} from "@mui/material"
+import { Button } from "@mui/material"
 import { Trash, Edit } from "react-feather"
 import { PrivateLayout, Table } from "components"
 import { axiosRequest } from "api"
@@ -8,6 +8,7 @@ import swal from "sweetalert2"
 
 export default function Products() {
   const url = "/api/v1/admin/product";
+  const img_url = "/api/v1/images";
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
@@ -73,6 +74,14 @@ export default function Products() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
+      field: "image",
+      headerName: "Image",
+      width: 200,
+      renderCell: (params) => {
+        return (<img alt="" className="scale-75" src={`${img_url}/${params.row.id}`}/>)
+      }
+    },
+    {
       field: "productName",
       headerName: "Product Name",
       width: 150,
@@ -126,21 +135,21 @@ export default function Products() {
       width: 150,
       renderCell: (params) => {
         return (
-        <div className="grid grid-cols-2">
-          <Link to={`/updateProducts/${params.row.id}`}>
+          <div className="grid grid-cols-2">
+            <Link to={`/updateProducts/${params.row.id}`}>
+              <Button
+                color="primary"
+              >
+                <Edit />
+              </Button>
+            </Link>
             <Button
-              color="primary"
+              onClick={(e) => deleteProduct(e, params.row)}
+              color="error"
             >
-              <Edit />
+              <Trash />
             </Button>
-          </Link>
-           <Button
-            onClick={(e) => deleteProduct(e, params.row)}
-            color="error"
-          >
-            <Trash />
-          </Button>
-        </div>
+          </div>
         );
       }
     }
@@ -151,14 +160,16 @@ export default function Products() {
       title="Products"
       description="all products add edit and delete shall fall in this page"
     >
-      <Link to="/addProducts" className="flex justify-end">
-        <button
-          type="button"
-          className="bg-amber-600 hover:bg-amber-500 text-white py-1 px-4 mb-5 rounded-sm"
-        >
-          <span>ADD PRODUCT</span>
-        </button>
-      </Link>
+      <div className="flex justify-end">
+        <Link to="/addProducts">
+          <button
+            type="button"
+            className="bg-amber-600 hover:bg-amber-500 text-white py-1 px-4 mb-5 rounded-sm"
+          >
+            <span>ADD PRODUCT</span>
+          </button>
+        </Link>
+      </div>
       <Table data={rows} columns={columns} loading={false} />
     </PrivateLayout>
   )

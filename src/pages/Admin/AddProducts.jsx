@@ -1,9 +1,10 @@
 import React from "react"
-import { PrivateLayout, Back, InputField, SelectDropdown } from "components"
+import { PrivateLayout, Back, InputField, SelectDropdown, ImageField } from "components"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
   productName: "",
@@ -11,7 +12,6 @@ const initialState = {
   description: "",
   gender: "",
   category: "",
-  quantity: ""
 }
 
 export default function AddProducts() {
@@ -19,9 +19,10 @@ export default function AddProducts() {
   const prod_url = '/api/v1/admin/product'
 
   const navigate = useNavigate();
+  const formData = new FormData();
 
   const [
-    { productName, price, description, gender, category, quantity },
+    { productName, price, description, gender, category },
     setState,
   ] = useState(initialState)
 
@@ -33,6 +34,14 @@ export default function AddProducts() {
     setState((prevState) => ({ ...prevState, [name]: value }))
   }
 
+  const setImageData = image => {
+    formData.append(
+        'image',
+        image,
+        uuidv4()
+    )
+  }
+
   const onSubmit = async (event) => {
     event.preventDefault()
     const datas = {
@@ -41,11 +50,14 @@ export default function AddProducts() {
       description,
       gender,
       category,
-      quantity
     }
-    console.log(datas)
+
+    for (let key in datas) {
+      formData.append(key, datas[key]);
+    }
+
     try {
-      const response = await axiosRequest.post(prod_url, datas)
+      const response = await axiosRequest.post(prod_url, formData)
       const { status } = response
 
       if (status === 201) {
@@ -188,16 +200,7 @@ export default function AddProducts() {
 
             <div>
               <p>Product Image</p>
-              <div className="flex justify-center items-center w-full">
-                <label htmlFor="dropzone-file" className="flex flex-col justify-center items-center w-full h-64 rounded-lg border-2 border-dashed cursor-pointer hover:border-amber-600">
-                  <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                    <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                  </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
-                </label>
-              </div>
+              <ImageField setImageData={setImageData} imageUrl={null}/>
             </div>
           </div>
         </form>

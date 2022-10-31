@@ -1,9 +1,10 @@
 import React from "react"
-import { PrivateLayout, Back, InputField, SelectDropdown } from "components"
+import { PrivateLayout, Back, InputField, SelectDropdown, ImageField } from "components"
 import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
   productName: "",
@@ -11,14 +12,16 @@ const initialState = {
   description: "",
   gender: "",
   category: "",
-  quantity: ""
 }
 
 export default function UpdateProducts() {
   const url = '/api/v1/product/category'
   const prod_url = '/api/v1/admin/product'
+  const image_url = '/api/v1/images'
 
   const query = useLocation()
+  const formData = new FormData();
+
   const prodID = query.pathname.substring(query.pathname.lastIndexOf('/') + 1)
 
   const navigate = useNavigate();
@@ -45,8 +48,13 @@ export default function UpdateProducts() {
       gender,
       category,
     }
+
+    for (let key in datas) {
+      formData.append(key, datas[key]);
+    }
+
     try {
-      const response = await axiosRequest.post(`${prod_url}/${prodID}`, datas)
+      const response = await axiosRequest.post(`${prod_url}/${prodID}`, formData)
       const { status } = response
 
       if (status === 201) {
@@ -66,6 +74,14 @@ export default function UpdateProducts() {
     }
   }
 
+  const setImageData = image => {
+    formData.append(
+        'image',
+        image,
+        uuidv4()
+    )
+  }
+
   useEffect(() => {
     let categoryList
     let genderList
@@ -81,7 +97,6 @@ export default function UpdateProducts() {
           genderList = data.data.genderList
           setCategoryOptions(categoryList)
           setGenderOptions(genderList)
-
         }
 
         if (status === 204) {
@@ -123,8 +138,8 @@ export default function UpdateProducts() {
           setState(prod_data)
         }
       }
-      catch {
-
+      catch (e) {
+        console.log(e)
       }
     }
 
@@ -219,7 +234,7 @@ export default function UpdateProducts() {
                   type="submit"
                   className="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 >
-                  Create Product
+                  Update Product
                 </button>
               </div>
 
@@ -227,16 +242,7 @@ export default function UpdateProducts() {
 
             <div>
               <p>Product Image</p>
-              <div className="flex justify-center items-center w-full">
-                <label htmlFor="dropzone-file" className="flex flex-col justify-center items-center w-full h-64 rounded-lg border-2 border-dashed cursor-pointer hover:border-amber-600">
-                  <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                    <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                  </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
-                </label>
-              </div>
+              <ImageField setImageData={setImageData} imageUrl={`${image_url}/${prodID}`}/>
             </div>
           </div>
         </form>
