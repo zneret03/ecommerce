@@ -21,6 +21,8 @@ export default function AddProducts() {
   const navigate = useNavigate();
   const formData = new FormData();
 
+  const [imageSelected, setSelected] = useState([]);
+
   const [
     { productName, price, description, gender, category },
     setState,
@@ -35,11 +37,7 @@ export default function AddProducts() {
   }
 
   const setImageData = image => {
-    formData.append(
-        'image',
-        image,
-        uuidv4()
-    )
+      setSelected(image)
   }
 
   const onSubmit = async (event) => {
@@ -51,6 +49,36 @@ export default function AddProducts() {
       gender,
       category,
     }
+    
+    if (!imageSelected) {
+      swal.fire({
+        title: "No image selected",
+        text: "Please select and image for product!",
+        icon: "warning",
+      })
+      for (let key in datas) {
+        formData.delete(key);
+      }
+      return
+    }
+
+    if (!gender || !category) {
+      swal.fire({
+        title: "Some fields are empty",
+        text: "Please fill out all fields",
+        icon: "warning",
+      })
+      for (let key in datas) {
+        formData.delete(key);
+      }
+      return
+    }
+
+    formData.append(
+      'image',
+      imageSelected,
+      uuidv4()
+    )
 
     for (let key in datas) {
       formData.append(key, datas[key]);
