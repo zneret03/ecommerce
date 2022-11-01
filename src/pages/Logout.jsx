@@ -23,5 +23,5 @@ export default function Logout() {
         }
 
         logout()
-    }, [])
+    }, [navigate])
 }
