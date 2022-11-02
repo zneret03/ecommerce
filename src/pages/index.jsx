@@ -14,3 +14,4 @@ export { default as UpdateProducts } from "./Admin/UpdateProducts"
 
 //Buyer Pages
 export { default as Home} from "./Buyer/home"
+export { default as ProductPage } from "./Buyer/productpage" 

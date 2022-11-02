@@ -11,3 +11,5 @@ export { default as SidebarProfile } from "./SidebarProfile"
 export { default as ImageField } from "./ImageField"
 export { default as Navbar} from "./Navbar"
 export { default as ProductCard } from "./ProductCard"
+export { default as HomeNavbar } from "./HomeNavbar"
+export { default as DisplayProducts } from './DisplayProducts'
