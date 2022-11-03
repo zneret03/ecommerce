@@ -13,3 +13,5 @@ export { default as Navbar} from "./Navbar"
 export { default as ProductCard } from "./ProductCard"
 export { default as HomeNavbar } from "./HomeNavbar"
 export { default as DisplayProducts } from './DisplayProducts'
+export { default as Banner } from './Banner'
+export { default as FeatureProduct } from './FeatureProduct'

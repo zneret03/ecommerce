@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { ProductCard } from 'components'
 import { axiosRequest } from "api"
 
-export default function DisplayProducts({ filter }) {
+export default function DisplayProducts({ filter, className }) {
     const product_url = '/api/v1/products'
     const img_url = '/api/v1/images'
 
@@ -25,12 +25,10 @@ export default function DisplayProducts({ filter }) {
     }, [filter])
 
     return (
-        <section className="bg-gray-100">
-            <div className="grid grid-cols-2 gap-2 md:gap-4 p-3 md:p-6 md:grid-cols-3 lg:grid-cols-5">
+            <div className={`${className}  gap-2`}>
                 {products.map((product) => {
                     return <ProductCard props={product} imageUrl={`${img_url}/${product.id}`} />
                 })}
             </div>
-        </section>
     )
 }

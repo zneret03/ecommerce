@@ -26,15 +26,15 @@ const navItems = [
 
 export default function HomeNavbar({ filtered, selected }) {
     return (
-        <nav className="bg-white pl-4 pr-5 w-full border-b-4 md:border-amber-600">
+        <nav className="bg-white pl-4 pr-5 w-full border-b-4 md:border-primary">
             <div className="hidden md:flex justify-center md:justify-between w-full">
                 <ul className="flex flex-row">
                     {navItems.map(type => {
                         return (
                             <li key={type.id}>
                                 <Link to={type.path}>
-                                    <button onClick={() => {filtered(type.name, type.id)}} className={`${selected === type.id ?'bg-amber-600 text-white': "text-gray-800"}
-                                    px-6 lg:px-8 md:text-xl font-medium py-5 hover:bg-amber-600 hover:text-white`}>{type.title}</button>
+                                    <button onClick={() => {filtered(type.name, type.id)}} className={`${selected === type.id ?'bg-primary text-white': "text-gray-800"}
+                                    px-6 lg:px-8 md:text-xl font-medium py-5 hover:bg-primary hover:text-white`}>{type.title}</button>
                                 </Link>
                             </li>
                         )
@@ -44,10 +44,10 @@ export default function HomeNavbar({ filtered, selected }) {
                     <div className="flex">
                         <input
                             type="text"
-                            className="mr-2 block md:w-40 lg:w-80 px-4 py-2 text-amber-800 bg-white border rounded-md focus:border-amber-400 focus:outline-none"
+                            className="mr-2 block md:w-40 lg:w-80 px-4 py-2 text-primary bg-white border rounded-md focus:border-primary focus:outline-none"
                             placeholder="Search..."
                         />
-                        <button className="px-4 text-white bg-amber-600 border-l rounded ">
+                        <button className="px-4 text-white bg-primary border-l rounded ">
                             Search
                         </button>
                     </div>

@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { axiosRequest } from "api"
-import { HomeNavbar, Navbar, DisplayProducts} from 'components'
+import { HomeNavbar, Navbar, DisplayProducts, Banner, FeatureProduct } from 'components'
 
 export default function Home() {
   const url = '/api/v1/user'
@@ -38,15 +38,29 @@ export default function Home() {
   }, [navigate])
 
   const filtered = (fil, selected) => {
-    setFilter(fil)
-    setSelected(selected)
-  } 
+    if (selected === buttonSelected) {
+      setFilter(null)
+      setSelected(null)
+    } else {
+      setFilter(fil)
+      setSelected(selected)
+    }
+  }
 
   return (
     <div>
       <Navbar />
-      <HomeNavbar filtered={filtered} selected={buttonSelected}/>
-      <DisplayProducts filter={filter}/>
+      <HomeNavbar filtered={filtered} selected={buttonSelected} />
+      {filter
+        ? <div className="p-2 md:p-4  bg-gray-200">
+          <DisplayProducts filter={filter} className="grid grid-cols-2 md:flex md:flex-wrap gap-2 justify-center" />
+        </div>
+        : <div>
+          <Banner />
+          <FeatureProduct filter={'Featured'} />
+          <FeatureProduct filter={'Latest'} />
+        </div>
+      }
     </div>
   )
 }

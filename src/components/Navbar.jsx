@@ -42,7 +42,7 @@ export default function Navbar() {
                             return (
                                 <li key={type.id}> 
                                     <Link to={type.path}>
-                                        <span class="block py-2 pr-4 pl-3 text-gray-700 rounded md:bg-transparent md:p-0 hover:text-amber-600" aria-current="page">{type.title}</span>
+                                        <span class="block py-2 pr-4 pl-3 text-gray-700 rounded md:bg-transparent md:p-0 hover:text-primary" aria-current="page">{type.title}</span>
                                     </Link>
                                 </li>
                             )
