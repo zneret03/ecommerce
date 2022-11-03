@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react"
-import useToggle from "hooks/useToggle"
-import { TextField, Button } from "@mui/material"
-import { PrivateLayout, Table, MyModal } from "components"
+import { Button } from "@mui/material"
+import { PrivateLayout, Table  } from "components"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
 import { Trash, Edit } from "react-feather"
 
 export default function Category() {
-  const [category, setCategory] = useState("")
-  const [toggle, isToggle] = useToggle()
-
   const url = "/api/v1/shop/category";
 
   const columns = [
@@ -167,94 +163,72 @@ export default function Category() {
     })
   }
 
-  const onSubmit = async (event) => {
-    event.preventDefault()
-    const config = {
-      categoryName: category,
-    }
-
-    try {
-      const response = await axiosRequest.post(url, config)
-
-      const { status, data } = response
-
-      isToggle()
-
-      if (status === 201) {
-        swal.fire({
-          title: "Successfully created",
-          text: "click ok to continue",
-          icon: "success",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            const updated_rows = [...rows, data.data]
-            setRows(updated_rows)
-          }
-        })
+  const addCategoryModal = async() => {
+    const {value: newCategory} = await swal.fire({
+      title: 'Create Category',
+      input: 'text',
+      showCancelButton: true,
+      width: '300px',
+      inputValidator: (value) => {
+        if(!value) {
+          return 'You need to write something!'
+        }
       }
-    } catch (error) {
-      const { status } = error.response
+    })
 
-      isToggle()
-
-      if (status === 500) {
-        swal.fire({
-          title: "Oops!! Error 500",
-          text: "server not found",
-          icon: "warning",
-        })
+    if(newCategory) {
+      const config = {
+        categoryName: newCategory,
       }
+      try {
+        const response = await axiosRequest.post(url, config)
+  
+        const { status, data } = response
 
-      if (status === 409) {
-        swal.fire({
-          title: "Error",
-          text: "Category already exists!",
-          icon: "warning",
-        })
+  
+        if (status === 201) {
+          swal.fire({
+            title: "Successfully created",
+            text: "click ok to continue",
+            icon: "success",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              const updated_rows = [...rows, data.data]
+              setRows(updated_rows)
+            }
+          })
+        }
+      } catch (error) {
+        const { status } = error.response
+  
+        if (status === 500) {
+          swal.fire({
+            title: "Oops!! Error 500",
+            text: "server not found",
+            icon: "warning",
+          })
+        }
+  
+        if (status === 409) {
+          swal.fire({
+            title: "Error",
+            text: "Category already exists!",
+            icon: "warning",
+          })
+        }
       }
     }
   }
-
-  const addCategoryModal = (
-    <MyModal toggle={toggle} isToggle={isToggle}>
-      <form onSubmit={(event) => onSubmit(event)}>
-        <TextField
-          className="w-full"
-          id="outlined-basic"
-          label="Category"
-          onChange={(event) => setCategory(event.target.value)}
-          variant="outlined"
-          required
-        />
-        <div className="my-4 text-white flex gap-4 justify-end">
-          <button
-            type="button"
-            onClick={isToggle}
-            className="hover:bg-amber-100 border-2 border-amber-600 text-amber-600 py-1 px-8 rounded-sm"
-          >
-            cancel
-          </button>
-          <button
-            type="submit"
-            className="bg-amber-600 hover:bg-amber-500 border-2 border-amber-600 py-1 px-8 rounded-sm"
-          >
-            save
-          </button>
-        </div>
-      </form>
-    </MyModal>
-  )
 
   return (
     <PrivateLayout
       title="Category"
       description="all product category shall fall in this page"
     >
-      {addCategoryModal}
       <div className="flex justify-end">
         <button
           type="button"
-          onClick={isToggle}
+          onClick={addCategoryModal}
           className="bg-amber-600 hover:bg-amber-500 text-white py-1 px-4 mb-5 rounded-sm"
         >
           <span>ADD CATEGORY</span>

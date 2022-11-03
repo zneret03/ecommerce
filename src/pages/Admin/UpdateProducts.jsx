@@ -76,9 +76,9 @@ export default function UpdateProducts() {
 
   const setImageData = image => {
     formData.append(
-        'image',
-        image,
-        uuidv4()
+      'image',
+      image,
+      uuidv4()
     )
   }
 
@@ -154,95 +154,95 @@ export default function UpdateProducts() {
       description="this page where you can update products"
     >
       <Back to="/products" />
-      <section className="py-8">
+      <section className="pt-8">
         <form onSubmit={(event) => onSubmit(event)}>
-          <div className="mb-6 grid grid-cols-2 gap-10">
-            <div>
-              <div className="mb-6">
-                <InputField
-                  type="text"
-                  name='productName'
-                  value={productName}
-                  onChange={(event) => onChange(event)}
-                  placeholder="Product Name"
-                  required
-                />
+          <div className="">
+            <div className="grid md:grid-rows-0 md:grid-cols-2 md:gap-10">
+              <div>
+                <div className="mb-6">
+                  <InputField
+                    type="text"
+                    name='productName'
+                    value={productName}
+                    onChange={(event) => onChange(event)}
+                    placeholder="Product Name"
+                    required
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <textarea
+                    name='description'
+                    value={description}
+                    onChange={(event) => onChange(event)}
+                    placeholder="Description"
+                    required
+                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <InputField
+                    type="number"
+                    name='price'
+                    value={price}
+                    onChange={(event) => onChange(event)}
+                    placeholder="Price"
+                    required
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-2 gap-2">
+                  <SelectDropdown name="gender" onChange={(event) => onChange(event)}>
+                    <option disabled>
+                      Gender
+                    </option>
+                    {genderOptions.map((type) => {
+                      if (type.id === gender) {
+                        return (
+                          <option selected key={type.id} value={type.id}>{type.gender}</option>
+                        )
+                      }
+                      else {
+                        return (
+                          <option key={type.id} value={type.id}>{type.gender}</option>
+                        )
+                      }
+
+                    })}
+                  </SelectDropdown>
+
+                  <SelectDropdown name="category" onChange={(event) => onChange(event)}>
+                    <option disabled>
+                      Category
+                    </option>
+                    {categoryOptions.map((type) => {
+                      if (type.id === category) {
+                        return (
+                          <option selected key={type.id} value={type.id}>{type.categoryName}</option>
+                        )
+                      } else {
+                        return (
+                          <option key={type.id} value={type.id}>{type.categoryName}</option>
+                        )
+                      }
+                    })}
+                  </SelectDropdown>
+                </div>
               </div>
 
-              <div className="mb-6">
-                <textarea
-                  name='description'
-                  value={description}
-                  onChange={(event) => onChange(event)}
-                  placeholder="Description"
-                  required
-                  className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
-                />
+              <div>
+                <p>Product Image</p>
+                <ImageField setImageData={setImageData} imageUrl={`${image_url}/${prodID}`} />
               </div>
-
-              <div className="mb-6">
-                <InputField
-                  type="number"
-                  name='price'
-                  value={price}
-                  onChange={(event) => onChange(event)}
-                  placeholder="Price"
-                  required
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-2">
-                <SelectDropdown name="gender" onChange={(event) => onChange(event)}>
-                <option disabled>
-                    Gender
-                  </option>
-                  {genderOptions.map((type) => {
-                    if (type.id === gender) {
-                      return (
-                        <option selected key={type.id} value={type.id}>{type.gender}</option>
-                      )
-                    }
-                    else {
-                      return (
-                        <option key={type.id} value={type.id}>{type.gender}</option>
-                      )
-                    }
-
-                  })}
-                </SelectDropdown>
-
-                <SelectDropdown name="category" onChange={(event) => onChange(event)}>
-                <option disabled>
-                    Category
-                  </option>
-                  {categoryOptions.map((type) => {
-                    if (type.id === category) {
-                      return (
-                        <option selected key={type.id} value={type.id}>{type.categoryName}</option>
-                      )
-                    } else {
-                      return (
-                        <option key={type.id} value={type.id}>{type.categoryName}</option>
-                      )
-                    }
-                  })}
-                </SelectDropdown>
-              </div>
-
-              <div className="text-center lg:text-left">
-                <button
-                  type="submit"
-                  className="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                >
-                  Update Product
-                </button>
-              </div>
-
             </div>
-
-            <div>
-              <p>Product Image</p>
-              <ImageField setImageData={setImageData} imageUrl={`${image_url}/${prodID}`}/>
+            <div className="md:w-1/2 md:pr-4 text-center lg:text-left mt-8">
+              <button
+                type="submit"
+                className="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+              >
+                Update Product
+              </button>
             </div>
           </div>
         </form>
