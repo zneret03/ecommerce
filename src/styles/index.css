@@ -15,3 +15,8 @@ button.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
 .PrivateSwitchBase-input {
   color: #eb4800;
 }
+
+#quantity::-webkit-inner-spin-button,
+#quantity::-webkit-outer-spin-button { 
+	-webkit-appearance: none;
+} 
