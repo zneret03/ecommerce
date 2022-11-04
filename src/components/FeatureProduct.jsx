@@ -3,7 +3,7 @@ import { useRef } from "react"
 import { ChevronLeft, ChevronRight } from "react-feather"
 import { DisplayProducts } from 'components'
 
-export default function FeatureProduct({filter}) {
+export default function FeatureProduct({name, filter}) {
 
     const ref = useRef(null)
     const left = () => {
@@ -15,10 +15,10 @@ export default function FeatureProduct({filter}) {
     }
 
     return (
-        <div className="flex flex-col px-4 md:px-7 my-5">
+        <div className="flex flex-col px-4 md:px-7">
             <div className="flex flex-row justify-between items-center mb-5 md:mb-0">
                 <div className="flex flex-row text-xl font-bold">
-                    <h6 className="text-primary mr-1">{filter}</h6>
+                    <h6 className="text-primary mr-1">{name}</h6>
                     <h6>Products</h6>
                 </div>
                 <div className="mx-4 w-3/4 lg:w-4/5 bg-gray-200 h-1 "></div>
@@ -32,8 +32,8 @@ export default function FeatureProduct({filter}) {
                 </div>
             </div>
 
-            <div ref={ref} className="py-1 md:py-5 overflow-x-scroll sm:overflow-x-hidden scroll-smooth">
-                <DisplayProducts filter={null} className="flex flew-row flex-nowrap w-max" />
+            <div ref={ref} className="pt-5 overflow-x-scroll sm:overflow-x-hidden scroll-smooth">
+                <DisplayProducts filter={filter} className="flex flew-row flex-nowrap w-max" />
             </div>
         </div>
     )

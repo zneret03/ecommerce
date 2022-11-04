@@ -1,14 +1,12 @@
 import React from "react"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { axiosRequest } from "api"
-import { HomeNavbar, Navbar, DisplayProducts, Banner, FeatureProduct } from 'components'
+import { HomeNavbar, Navbar, Banner, FeatureProduct, Footer } from 'components'
 
 export default function Home() {
   const url = '/api/v1/user'
   const navigate = useNavigate();
-  const [filter, setFilter] = useState(null)
-  const [buttonSelected, setSelected] = useState(null)
 
   useEffect(() => {
     const getUser = async () => {
@@ -37,30 +35,16 @@ export default function Home() {
     getUser()
   }, [navigate])
 
-  const filtered = (fil, selected) => {
-    if (selected === buttonSelected) {
-      setFilter(null)
-      setSelected(null)
-    } else {
-      setFilter(fil)
-      setSelected(selected)
-    }
-  }
-
   return (
     <>
       <Navbar />
-      <HomeNavbar filtered={filtered} selected={buttonSelected} />
-      {filter
-        ? <div className="p-2 md:p-4 bg-gray-200">
-          <DisplayProducts filter={filter} className="grid grid-cols-2 md:flex md:flex-wrap gap-2 justify-center" />
-        </div>
-        : <div>
-          <Banner />
-          <FeatureProduct filter={'Featured'} />
-          <FeatureProduct filter={'Latest'} />
-        </div>
-      }
+      <HomeNavbar />
+      <Banner />
+      <div className="flex flex-col gap-y-5 mb-5">
+        <FeatureProduct filter={'featured'} name={'Featured'} />
+        <FeatureProduct filter={'latest'} name={'Latest'} />
+      </div>
+      <Footer />
     </>
   )
 }
