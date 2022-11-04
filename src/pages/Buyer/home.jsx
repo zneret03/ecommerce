@@ -48,11 +48,11 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <>
       <Navbar />
       <HomeNavbar filtered={filtered} selected={buttonSelected} />
       {filter
-        ? <div className="p-2 md:p-4  bg-gray-200">
+        ? <div className="p-2 md:p-4 bg-gray-200">
           <DisplayProducts filter={filter} className="grid grid-cols-2 md:flex md:flex-wrap gap-2 justify-center" />
         </div>
         : <div>
@@ -61,6 +61,6 @@ export default function Home() {
           <FeatureProduct filter={'Latest'} />
         </div>
       }
-    </div>
+    </>
   )
 }
