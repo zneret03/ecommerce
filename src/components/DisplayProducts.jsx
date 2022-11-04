@@ -27,7 +27,7 @@ export default function DisplayProducts({ filter, className }) {
     return (
             <div className={`${className}  gap-2`}>
                 {products.map((product) => {
-                    return <ProductCard props={product} imageUrl={`${img_url}/${product.id}`} />
+                    return <ProductCard props={product} imageUrl={`${img_url}/${product.id}`} key={product.id}/>
                 })}
             </div>
     )
