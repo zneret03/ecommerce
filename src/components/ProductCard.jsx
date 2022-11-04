@@ -1,10 +1,9 @@
 import React from "react"
-import { Link } from "react-router-dom"
 
 export default function ProductCard({imageUrl, props}) {
     return (
-        <Link to={`/product/${props.id}`}>
-            <div className="flex flex-col w-full lg:w-72 bg-white rounded-sm shadow-md overflow-hidden inline-block">
+        <a href={`/product/${props.id}`} >
+             <div className="flex flex-col w-full lg:w-72 bg-white rounded-sm shadow-md overflow-hidden inline-block">
                 <div className="h-60 overflow-hidden">
                     <img className="object-cover w-full h-full" src={imageUrl} alt={`${props.productName}`}/>
                 </div>
@@ -16,6 +15,6 @@ export default function ProductCard({imageUrl, props}) {
                     </div>
                 </div>
             </div>
-        </Link>
+        </a>
     )
 }
