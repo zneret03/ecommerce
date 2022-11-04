@@ -6,7 +6,7 @@ import { PrivateLayout, Table } from "components"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
 
-export default function Products() {
+export default function AdminProducts() {
   const url = "/api/v1/admin/product";
   const img_url = "/api/v1/images";
   const [rows, setRows] = useState([]);
@@ -136,7 +136,7 @@ export default function Products() {
       renderCell: (params) => {
         return (
           <div className="grid grid-cols-2">
-            <Link to={`/updateProducts/${params.row.id}`}>
+            <Link to={`/admin/updateProducts/${params.row.id}`}>
               <Button
                 color="primary"
               >
@@ -161,7 +161,7 @@ export default function Products() {
       description="all products add edit and delete shall fall in this page"
     >
       <div className="flex justify-end">
-        <Link to="/addProducts">
+        <Link to="/admin/addProducts">
           <button
             type="button"
             className="bg-amber-600 hover:bg-amber-500 text-white py-1 px-4 mb-5 rounded-sm"

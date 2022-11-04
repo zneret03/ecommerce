@@ -7,7 +7,7 @@ import {
   SellerDashboard,
   Category,
   Orders,
-  Products,
+  AdminProducts,
   StockManagement,
   AddProducts,
   UpdateProducts,
@@ -27,12 +27,12 @@ function App() {
 
         {/**Admin pages */}
         <Route exact path="/admin" element={<SellerDashboard />} />
-        <Route exact path="/category" element={<Category />} />
-        <Route exact path="/orders" element={<Orders />} />
-        <Route exact path="/products" element={<Products />} />
-        <Route exact path="/stockManagement" element={<StockManagement />} />
-        <Route exact path="/addProducts/" element={<AddProducts />} />
-        <Route exact path="/updateProducts/:id" element={<UpdateProducts />} />
+        <Route exact path="/admin/category" element={<Category />} />
+        <Route exact path="/admin/orders" element={<Orders />} />
+        <Route exact path="/admin/products" element={<AdminProducts />} />
+        <Route exact path="/admin/stockManagement" element={<StockManagement />} />
+        <Route exact path="/admin/addProducts/" element={<AddProducts />} />
+        <Route exact path="/admin/updateProducts/:id" element={<UpdateProducts />} />
 
         <Route exact path="/product/:id" element={<ProductPage />} />
 

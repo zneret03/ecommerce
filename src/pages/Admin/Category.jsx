@@ -9,7 +9,6 @@ export default function Category() {
   const url = "/api/v1/shop/category";
 
   const columns = [
-    { field: "id", headerName: "ID", width: 200 },
     {
       field: "categoryName",
       headerName: "Category Name",

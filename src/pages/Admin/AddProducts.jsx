@@ -95,7 +95,7 @@ export default function AddProducts() {
           icon: "success",
         }).then((result) => {
           if (result.isConfirmed) {
-            navigate('/products')
+            navigate('/admin/products')
           }
         })
       }
@@ -129,7 +129,7 @@ export default function AddProducts() {
               icon: "warning",
             }).then((result) => {
               if (result.isConfirmed) {
-                navigate('/category')
+                navigate('/admin/category')
               }
             })
           }
@@ -153,7 +153,7 @@ export default function AddProducts() {
       title="Create New Products"
       description="this page where you can create different products you like"
     >
-      <Back to="/products" />
+      <Back to="/admin/products" />
       <section className="pt-8">
         <form onSubmit={(event) => onSubmit(event)}>
           <div className="">

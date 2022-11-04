@@ -64,7 +64,7 @@ export default function UpdateProducts() {
           icon: "success",
         }).then((result) => {
           if (result.isConfirmed) {
-            navigate('/products')
+            navigate('/admin/products')
           }
         })
       }
@@ -106,7 +106,7 @@ export default function UpdateProducts() {
             icon: "warning",
           }).then((result) => {
             if (result.isConfirmed) {
-              navigate('/category')
+              navigate('/admin/category')
             }
           })
         }
@@ -153,7 +153,7 @@ export default function UpdateProducts() {
       title="Update Products"
       description="this page where you can update products"
     >
-      <Back to="/products" />
+      <Back to="/admin/products" />
       <section className="pt-8">
         <form onSubmit={(event) => onSubmit(event)}>
           <div className="">

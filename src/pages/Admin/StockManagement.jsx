@@ -10,7 +10,6 @@ export default function StockManagement() {
 
   const [rows, setRows] = useState([]);
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
       field: "productName",
       headerName: "Product Name",
