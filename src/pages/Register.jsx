@@ -92,7 +92,7 @@ export default function Register() {
       <Back to="/login" />
       <form onSubmit={(event) => onSubmit(event)}>
         <div className="py-8">
-          <h1 className="text-4xl font-bold text-amber-600 my-2">
+          <h1 className="text-4xl font-bold text-primary my-2">
             Register Account
           </h1>
           <p className="text-gray-400 w-80">
@@ -173,7 +173,7 @@ export default function Register() {
             name="password"
             value={password}
             onChange={(event) => onChange(event)}
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
+            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary-600 focus:outline-none"
             placeholder="Password"
             required
           />
@@ -182,7 +182,7 @@ export default function Register() {
         <div class="text-center lg:text-left">
           <button
             type="submit"
-            class="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+            class="inline-block px-7 py-3 bg-primary text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-primary hover:shadow-lg focus:bg-primary focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary active:shadow-lg transition duration-150 ease-in-out w-full"
           >
             Register
           </button>

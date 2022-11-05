@@ -73,7 +73,7 @@ export default function Login() {
     <PublicLayout svgImage="images/Login_SVG.svg">
       <form onSubmit={(event) => onSubmit(event)}>
         <div className="py-8">
-          <h1 className="text-4xl font-bold text-amber-600 my-2">
+          <h1 className="text-4xl font-bold text-primary my-2">
             Welcome Back!
           </h1>
           <p className="text-gray-400 w-80">
@@ -114,7 +114,7 @@ export default function Login() {
         <div class="text-center lg:text-left">
           <button
             type="submit"
-            class="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+            class="inline-block px-7 py-3 bg-primary text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-primary hover:shadow-lg focus:bg-primary focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary active:shadow-lg transition duration-150 ease-in-out w-full"
           >
             Login
           </button>

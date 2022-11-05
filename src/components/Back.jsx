@@ -7,7 +7,7 @@ export default function Back({ to }) {
     <div className="flex">
       <Link
       to={to}
-      className="flex align-center gap-2 hover:text-amber-600 transition-all"
+      className="flex align-center gap-2 hover:text-primary transition-all"
     >
       <ChevronLeft />
       <span className="font-bold">Back</span>
