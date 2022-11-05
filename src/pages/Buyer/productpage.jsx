@@ -12,6 +12,7 @@ export default function ProductPage() {
     const prodID = query.pathname.substring(query.pathname.lastIndexOf('/') + 1)
     const [product, setProduct] = useState([])
     const [quantity, setQuantity] = useState(1)
+    const [isLoaded, setLoaded] = useState(false)
 
     useEffect(() => {
         const getProduct = async () => {
@@ -20,9 +21,9 @@ export default function ProductPage() {
             if (status === 200) {
                 const prod = data.data
                 setProduct(prod)
+                setLoaded(true)
             }
         }
-
         getProduct()
     }, [prodID])
 
@@ -44,10 +45,11 @@ export default function ProductPage() {
                     <div className="w-full md:w-2/5 overflow-hidden">
                         <img className="object-cover w-full h-full" src={`${imageUrl}/${prodID}`} alt="" />
                     </div>
+                    {isLoaded ? 
                     <div className="flex flex-col justify-between w-full mt-2 md:mt-0 md:pl-10 md:pr-5 md:w-3/5">
                         <div className="flex flex-col h-full text-gray-800 gap-y-5">
                             <div className="text-4xl font-medium">{product.productName}</div>
-                            <div className="text-4xl font-medium py-4 px-6 bg-gray-100 text-primary">₱{product.price}</div>
+                            <div className="text-4xl font-medium py-4 px-6 bg-gray-100 text-primary">₱{product.price.toLocaleString()}</div>
                             <div className="flex flex-col gap-y-2">
                                 <div className="text-lg font-medium mr-5 text-gray-700">Description</div>
                                 <div className="text-base h-full md:h-2/5">{product.description}</div>
@@ -73,6 +75,7 @@ export default function ProductPage() {
                             </button>
                         </div>
                     </div>
+                    : null }
                 </div>
                 <div className="bg-white py-5 mt-3 ">
                     <FeatureProduct name={"Similar"} filter={"Similar"} />

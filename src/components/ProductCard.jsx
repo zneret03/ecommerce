@@ -10,7 +10,7 @@ export default function ProductCard({imageUrl, props}) {
                 <div className="flex flex-col justify-between px-5 py-2 h-2/6">
                     <h5 className="text-xl tracking-tight text-gray-700">{props.productName}</h5>
                     <div className="flex flex-row justify-between">
-                        <span className="text-xl text-primary">₱{props.price}</span>
+                        <span className="text-xl text-primary">₱{props.price.toLocaleString()}</span>
                         <p className="text-gray-400">Stock: {props.quantity}</p>
                     </div>
                 </div>
