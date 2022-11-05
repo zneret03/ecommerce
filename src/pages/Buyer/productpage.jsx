@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { axiosRequest } from "api"
 import { useLocation } from "react-router-dom"
-import { Navbar, FeatureProduct } from "components"
+import { Navbar, FeatureProduct, Footer } from "components"
 import { Plus, Minus, ShoppingCart } from "react-feather"
 
 export default function ProductPage() {
@@ -103,6 +103,7 @@ export default function ProductPage() {
                     <FeatureProduct name={"Similar"} filter={"Similar"} />
                 </div>
             </section>
+            <Footer />
         </>
     )
 }

@@ -55,7 +55,7 @@ export default function Navbar() {
                         className="md:hidden mr-2 block w-full px-4 py-2 text-primary bg-white border border-gray-700 h-12 rounded-md focus:border-primary focus:outline-none"
                         placeholder="Search..."
                     />
-                    <ul className="mt-3 flex flex-col gap-y-4 md:gap-y-0 md:flex-row text-2xl md:text-base items-center">
+                    <ul className="mt-3 md:mt-0 flex flex-col gap-y-4 md:gap-y-0 md:flex-row text-2xl md:text-base items-center">
                         {navItems.map(type => {
                             return (
                                 <li key={type.id} className="p-4 md:w-max w-full text-center md:active:bg-transparent active:bg-gray-100 md:hover:bg-transparent hover:bg-gray-100 rounded-lg">
