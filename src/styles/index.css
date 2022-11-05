@@ -20,3 +20,7 @@ button.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
 #quantity::-webkit-outer-spin-button { 
 	-webkit-appearance: none;
 } 
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}

@@ -18,7 +18,10 @@ export default function DisplayProducts({ filter, className, page, setLength }) 
             if (status === 200) {
                 const res = data.data
                 setProducts(res)
-                setLength(data.message)
+
+                if(setLength) {
+                    setLength(data.message) 
+                } 
             }
         }
 
@@ -26,7 +29,7 @@ export default function DisplayProducts({ filter, className, page, setLength }) 
     }, [filter, page, setLength])
 
     return (
-            <div className={`${className} m-2 gap-2 md:gap-3`}>
+            <div className={`${className} gap-2 md:gap-3`}>
                 {products.map((product) => {
                     return <ProductCard props={product} imageUrl={`${img_url}/${product.id}`} key={product.id}/>
                 })}
