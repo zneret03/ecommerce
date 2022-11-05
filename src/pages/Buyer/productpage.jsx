@@ -46,13 +46,24 @@ export default function ProductPage() {
                         <img className="object-cover w-full h-full" src={`${imageUrl}/${prodID}`} alt="" />
                     </div>
                     {isLoaded ? 
-                    <div className="flex flex-col justify-between w-full mt-2 md:mt-0 md:pl-10 md:pr-5 md:w-3/5">
+                    <div className="flex flex-col justify-between w-full mt-5 md:mt-2 md:mt-0 md:pl-10 md:pr-5 md:w-3/5">
                         <div className="flex flex-col h-full text-gray-800 gap-y-5">
                             <div className="text-4xl font-medium">{product.productName}</div>
                             <div className="text-4xl font-medium py-4 px-6 bg-gray-100 text-primary">₱{product.price.toLocaleString()}</div>
                             <div className="flex flex-col gap-y-2">
                                 <div className="text-lg font-medium mr-5 text-gray-700">Description</div>
                                 <div className="text-base h-full md:h-2/5">{product.description}</div>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                                <div className="text-lg font-medium mr-5 text-gray-700">Product Details</div>
+                                <div className="grid grid-cols-2 w-max gap-x-4 gap-y-2">
+                                    <div className="text-base">Gender:</div>
+                                    <div className="text-base ">{product.gender}</div>
+                                    <div className="text-base">Category:</div>
+                                    <div className="text-base ">{product.category}</div>
+                                    <div className="text-base">Stock:</div>
+                                    <div className="text-base ">{product.quantity}</div>
+                                </div>
                             </div>
                         </div>
                         <div className="flex flex-col gap-y-3 pt-5">

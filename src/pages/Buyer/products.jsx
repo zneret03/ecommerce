@@ -68,10 +68,10 @@ export default function Products() {
             <Navbar />
             <HomeNavbar filter={filter} />
             <section className="bg-gray-200">
-                <div className="py-1 md:py-4 flex justify-center">
+                <div className="md:py-4 flex justify-center">
                     <DisplayProducts filter={filter} page={currentPage} setLength={setLength} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" />
                 </div>
-                <div className="flex flex-row justify-center w-full text-gray-900/50 text-xl gap-x-5 py-10">
+                <div className="flex flex-row justify-center w-full text-gray-900/50 text-lg md:text-xl gap-x-3 md:gap-x-5 py-10">
                     <button onClick={() => { arrow("left") }} className="hover:text-primary">
                         <ChevronLeft />
                     </button>

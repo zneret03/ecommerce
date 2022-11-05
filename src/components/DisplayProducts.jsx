@@ -26,7 +26,7 @@ export default function DisplayProducts({ filter, className, page, setLength }) 
     }, [filter, page, setLength])
 
     return (
-            <div className={`${className} mx-2 p-2 gap-2 md:gap-3`}>
+            <div className={`${className} m-2 gap-2 md:gap-3`}>
                 {products.map((product) => {
                     return <ProductCard props={product} imageUrl={`${img_url}/${product.id}`} key={product.id}/>
                 })}
