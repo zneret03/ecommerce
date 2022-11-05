@@ -49,6 +49,18 @@ export default function UpdateProducts() {
       category,
     }
 
+    genderOptions.forEach((type)=> {
+      if(type.gender === gender) {
+        datas.gender = type.id
+      }
+    })
+
+    categoryOptions.forEach((type)=> {
+      if(type.categoryName === category) {
+        datas.category = type.id
+      }
+    })
+
     for (let key in datas) {
       formData.append(key, datas[key]);
     }
@@ -124,17 +136,6 @@ export default function UpdateProducts() {
         const { status, data } = response
         const prod_data = data.data
         if (status === 200) {
-          categoryList.forEach(type => {
-            if (prod_data.category === type.categoryName) {
-              prod_data.category = type.id
-            }
-          })
-
-          genderList.forEach(type => {
-            if (prod_data.gender === type.gender) {
-              prod_data.gender = type.id
-            }
-          })
           setState(prod_data)
         }
       }
@@ -145,7 +146,7 @@ export default function UpdateProducts() {
 
     getCategory()
     getProduct()
-
+    
   }, [navigate, prodID])
 
   return (
@@ -198,7 +199,7 @@ export default function UpdateProducts() {
                       Gender
                     </option>
                     {genderOptions.map((type) => {
-                      if (type.id === gender) {
+                      if (type.gender === gender) {
                         return (
                           <option selected key={type.id} value={type.id}>{type.gender}</option>
                         )
@@ -217,7 +218,7 @@ export default function UpdateProducts() {
                       Category
                     </option>
                     {categoryOptions.map((type) => {
-                      if (type.id === category) {
+                      if (type.categoryName === category) {
                         return (
                           <option selected key={type.id} value={type.id}>{type.categoryName}</option>
                         )
