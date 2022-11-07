@@ -4,6 +4,7 @@ import { axiosRequest } from "api"
 import { useLocation } from "react-router-dom"
 import { Navbar, FeatureProduct, Footer } from "components"
 import { Plus, Minus, ShoppingCart } from "react-feather"
+import swal from "sweetalert2"
 
 export default function ProductPage() {
     const url = '/api/v1/product'
@@ -35,6 +36,26 @@ export default function ProductPage() {
 
     const right = () => {
         setQuantity(prevState => prevState + 1)
+    }
+
+    const addCart = async (event) => {
+        event.preventDefault()
+        try {
+            const datas = { id: prodID, quantity }
+            const response = await axiosRequest.post("/api/v1/user/cart", datas)
+
+            const { status } = response
+
+            if (status === 201) {
+                swal.fire({
+                    title: "Product added to cart!",
+                    icon: "success",
+                })
+            }
+        }
+        catch {
+
+        }
     }
 
     return (
@@ -91,7 +112,7 @@ export default function ProductPage() {
                                         </button>
                                     </div>
                                 </div>
-                                <button className="flex justify-center w-full items-center p-5 gap-x-3 bg-primary text-white">
+                                <button onClick={addCart} className="flex justify-center w-full items-center p-5 gap-x-3 bg-primary text-white">
                                     <ShoppingCart />
                                     <span>Add to Cart</span>
                                 </button>

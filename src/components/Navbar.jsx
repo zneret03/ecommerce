@@ -40,7 +40,7 @@ export default function Navbar() {
                         <img src="/images/logo.png" alt="Logo" />
                     </Link>
                     <div className="flex flex-row">
-                        <Link to="/" className="pr-5 pl-4 py-4 visible rounded-lg md:hidden active:bg-gray-100">
+                        <Link to="/cart" className="pr-5 pl-4 py-4 visible rounded-lg md:hidden active:bg-gray-100">
                             <ShoppingCart className="w-7 h-7 text-gray-700" />
                         </Link>
 
