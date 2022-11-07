@@ -5,21 +5,32 @@ import { ChevronLeft, ChevronRight } from "react-feather"
 
 export default function Products() {
     const [searchParams, setSearchParams] = useSearchParams()
+
     const filter = searchParams.get('filter')
-    const [pageNumbers, setPageNumber] = useState([])
     const current = parseInt(searchParams.get('page'))
+    const keyword = searchParams.get('keyword')
+
+    const [pageNumbers, setPageNumber] = useState([])
     const [currentPage, setCurrent] = useState(current)
     const [length, setLength] = useState([])
 
     const click = (page) => {
         if (page === "...") return
         setCurrent(page)
+
     }
 
     const numberPerPage = 12
 
     useEffect(() => {
-        setSearchParams({ 'filter': filter, 'page': currentPage })
+        if (filter) {
+            setSearchParams({'filter': filter, 'page': currentPage})
+        }
+
+        if (keyword) {
+            setSearchParams({'keyword': keyword, 'page': currentPage})
+        }
+        
         const pages = Math.ceil(length / numberPerPage)
         if (currentPage > 3) {
             if ((pages - currentPage) === 2) {
@@ -51,7 +62,7 @@ export default function Products() {
             }
         }
 
-    }, [currentPage, filter, setSearchParams, length])
+    }, [currentPage, filter, keyword, setSearchParams, length])
 
     const arrow = (dir) => {
         if (dir === "left" && currentPage > 1) {
@@ -63,7 +74,7 @@ export default function Products() {
         }
     }
 
-    const set = (value) => {
+    const set = (value)=> {
         setLength(value)
     }
 
@@ -73,7 +84,7 @@ export default function Products() {
             <HomeNavbar filter={filter} />
             <section className="bg-gray-200">
                 <div className="md:py-4 flex justify-center">
-                    <DisplayProducts filter={filter} page={currentPage} setLength={set} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" />
+                    <DisplayProducts page={currentPage} set={set} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" />
                 </div>
                 {length ?
                     <div className="flex flex-row justify-center w-full text-gray-900/50 text-lg md:text-xl gap-x-3 md:gap-x-5 py-10">

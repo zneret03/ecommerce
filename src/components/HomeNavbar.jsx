@@ -1,4 +1,5 @@
 import React from "react"
+import {Search} from "components"
 
 const navItems = [
     {
@@ -43,18 +44,7 @@ export default function HomeNavbar({filter}) {
                         )
                     })}
                 </ul>
-                <div className="md:flex sm:items-center w-100 hidden">
-                    <div className="flex">
-                        <input
-                            type="text"
-                            className="mr-2 block w-full md:w-40 lg:w-80 px-4 py-2 text-primary bg-white border rounded-md focus:border-primary focus:outline-none"
-                            placeholder="Search..."
-                        />
-                        <button className="md:block px-4 text-white bg-primary border-l rounded ">
-                            Search
-                        </button>
-                    </div>
-                </div>
+                <Search className="md:flex sm:items-center w-100 hidden" hidden={false}/>
             </div>
         </nav>
     )

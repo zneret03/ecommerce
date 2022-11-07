@@ -33,7 +33,7 @@ export default function FeatureProduct({name, filter}) {
             </div>
 
             <div ref={ref} className="p-4 overflow-x-scroll sm:overflow-x-hidden scroll-smooth">
-                <DisplayProducts filter={filter} className="flex flew-row flex-nowrap w-max" setLength={null}/>
+                <DisplayProducts className="flex flew-row flex-nowrap w-max" set={(e) => {}}/>
             </div>
         </div>
     )

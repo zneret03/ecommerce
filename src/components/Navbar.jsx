@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { ShoppingCart } from "react-feather"
 import { Link } from "react-router-dom"
+import {Search} from 'components'
 
 const navItems = [
     {
@@ -50,11 +51,7 @@ export default function Navbar() {
                 </div>
 
                 <div className={`${isOpen ? "" : "hidden"} w-full md:block md:w-auto py-4 md:py-0`}>
-                    <input
-                        type="text"
-                        className="md:hidden mr-2 block w-full px-4 py-2 text-primary bg-white border border-gray-700 h-12 rounded-md focus:border-primary focus:outline-none"
-                        placeholder="Search..."
-                    />
+                    <Search className="md:hidden visible" hidden={true}/>
                     <ul className="mt-3 md:mt-0 flex flex-col gap-y-4 md:gap-y-0 md:flex-row text-2xl md:text-base items-center">
                         {navItems.map(type => {
                             return (
@@ -65,9 +62,9 @@ export default function Navbar() {
                                 </li>
                             )
                         })}
-                        <li className="p-4 hidden md:visible">
-                            <Link to="/">
-                                <ShoppingCart className="hover:text-primary md:w-auto w-8 h-8" />
+                        <li className="p-4 hidden md:block">
+                            <Link to="/cart">
+                                <ShoppingCart className="hover:text-primary md:w-auto w-6 h-6" />
                             </Link>
                         </li>
                     </ul>
