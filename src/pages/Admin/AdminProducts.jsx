@@ -5,11 +5,13 @@ import { Trash, Edit } from "react-feather"
 import { PrivateLayout, Table } from "components"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
+import { useNavigate } from "react-router-dom"
 
 export default function AdminProducts() {
   const url = "/api/v1/admin/product";
   const img_url = "/api/v1/images";
   const [rows, setRows] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -24,12 +26,23 @@ export default function AdminProducts() {
 
       } catch (error) {
         const { status } = error.response
-        console.log(status)
+
+        if (status === 404) {
+          swal.fire({
+            title: "No Shop!",
+            text: "Please setup shop first!",
+            icon: "warning",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate('/admin/shop')
+            }
+          })
+        }
       }
     }
 
     getProducts()
-  }, [])
+  }, [navigate])
 
   const removeRow = (id) => {
     const newRow = rows.filter((rows) => rows.id !== id);

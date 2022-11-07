@@ -11,6 +11,7 @@ export { default as AdminProducts } from "./Admin/AdminProducts"
 export { default as StockManagement } from "./Admin/StockManagement"
 export { default as AddProducts } from "./Admin/AddProducts"
 export { default as UpdateProducts } from "./Admin/UpdateProducts"
+export { default as Shop } from "./Admin/Shop"
 
 //Buyer Pages
 export { default as Home} from "./Buyer/home"

@@ -14,7 +14,8 @@ import {
   Home,
   ProductPage,
   Products,
-  Cart
+  Cart,
+  Shop
 } from "pages"
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/admin/stockManagement" element={<StockManagement />} />
         <Route exact path="/admin/addProducts/" element={<AddProducts />} />
         <Route exact path="/admin/updateProducts/:id" element={<UpdateProducts />} />
+        <Route exact path="/admin/shop" element={<Shop />} />
 
         <Route exact path="/product/:id" element={<ProductPage />} />
         <Route exact path="/products" element={<Products />} />

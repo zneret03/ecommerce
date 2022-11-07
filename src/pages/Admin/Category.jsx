@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { Button } from "@mui/material"
 import { PrivateLayout, Table  } from "components"
 import { axiosRequest } from "api"
@@ -51,6 +52,7 @@ export default function Category() {
   ]
 
   const [rows, setRows] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getCategories = async () => {
@@ -66,6 +68,18 @@ export default function Category() {
       } catch (error) {
         const { status } = error.response
 
+        if (status === 404) {
+          swal.fire({
+            title: "No Shop!",
+            text: "Please setup shop first!",
+            icon: "warning",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate('/admin/shop')
+            }
+          })
+        }
+
         if (status === 500) {
           swal.fire({
             title: "Oops!! Error 500",
@@ -77,7 +91,7 @@ export default function Category() {
     }
 
     getCategories()
-  }, [])
+  }, [navigate])
 
   const removeRow = (id) => {
     const newRow = rows.filter((rows) => rows.id !== id);

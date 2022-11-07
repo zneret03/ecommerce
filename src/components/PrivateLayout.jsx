@@ -3,7 +3,7 @@ import { Sidebar } from "./"
 
 export default function Layout({ children, title, description }) {
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row h-screen">
       <Sidebar />
       <div className="pt-4 px-4 md:pt-8 w-full">
         <div className="flex flex-col  mb-6">
