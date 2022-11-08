@@ -5,13 +5,13 @@ import { axiosRequest } from "api"
 import { useSearchParams } from "react-router-dom"
 import { Frown } from "react-feather"
 
-export default function DisplayProducts({ className, set, page }) {
+export default function DisplayProducts({ className, set, filter }) {
     const product_url = '/api/v1/products'
     const img_url = '/api/v1/images'
 
     const [products, setProducts] = useState([])
     const [searchParams] = useSearchParams()
-    const url = `${product_url}?${searchParams}`
+    const url = (!filter) ? `${product_url}?${searchParams}` : `${product_url}?filter=${filter}&page=1`
     const [isLoaded, setLoaded] = useState(false)
 
     const setLength = (length) => {

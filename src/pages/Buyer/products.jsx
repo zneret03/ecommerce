@@ -84,7 +84,7 @@ export default function Products() {
             <HomeNavbar filter={filter} />
             <section className="bg-gray-200">
                 <div className="md:py-4 flex justify-center">
-                    <DisplayProducts page={currentPage} set={set} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" />
+                    <DisplayProducts page={currentPage} set={set} filter={null} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" />
                 </div>
                 {length ?
                     <div className="flex flex-row justify-center w-full text-gray-900/50 text-lg md:text-xl gap-x-3 md:gap-x-5 py-10">
