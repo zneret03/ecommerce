@@ -7,7 +7,7 @@ export default function Seller({ shopID }) {
     const imageUrl = '/api/v1/images'
     const [shop, setShop] = useState([])
     const [date, setDate] = useState("")
-
+    
     useEffect(() => {
         const getShop = async () => {
             const response = await axiosRequest.get(`${url}?shop=${shopID}&page=1`)
@@ -15,7 +15,6 @@ export default function Seller({ shopID }) {
             if (status === 200) {
                 const dat = data.data
                 setShop(dat)
-
                 const options = { month: 'long', year: "numeric" };
                 const newDate = new Date(dat.dateCreated).toLocaleDateString('en-US', options)
                 setDate(newDate)
@@ -57,14 +56,14 @@ export default function Seller({ shopID }) {
                     </div>
                 </div>
                 <div className="md:flex hidden flex-col justify-center">
-                    <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center">
+                    <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center hover:bg-primary hover:text-white">
                         <ShoppingBag />
                         <p>View Shop</p>
                     </button>
                 </div>
             </div>
-            <div className="md:hidden flex flex-col justify-center">
-                <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center">
+            <div className="md:hidden flex ">
+                <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center ">
                     <ShoppingBag />
                     <p>View Shop</p>
                 </button>

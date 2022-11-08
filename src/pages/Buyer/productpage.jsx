@@ -111,7 +111,10 @@ export default function ProductPage() {
                         </div>
                         : null}
                 </div>
-                <Seller shopID={product.shop} />
+                {isLoaded ?
+                    <Seller shopID={product.shop} />
+                    : null
+                }
                 <div className="bg-white py-5 mt-3 ">
                     <FeatureProduct name={"Similar"} filter={"Similar"} />
                 </div>

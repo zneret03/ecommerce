@@ -83,13 +83,11 @@ export default function Cart() {
                                     </div>
                                     <div className="flex flex-col justify-between">
                                         <div>
-                                            <p className="font-medium text-2xl">{product.productName}</p>
+                                            <a href={`/product/${product.id}`} className="font-medium text-2xl">{product.productName}</a>
                                             <div className="flex flex-col gap-y-1 mt-2 text-sm">
                                                 <p>Category: {product.category}</p>
                                                 <p>Gender: {product.gender}</p>
 
-                                                <p className="mt-2">Seller: {product.seller}</p>
-                                                <p>Address: {product.sellerAddress}</p>
                                             </div>
                                         </div>
                                         <div className="flex flex-row items-center gap-x-4 h-7 md:mt-0 mt-5">
