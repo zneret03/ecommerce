@@ -24,13 +24,13 @@ export default function Products() {
 
     useEffect(() => {
         if (filter) {
-            setSearchParams({'filter': filter, 'page': currentPage})
+            setSearchParams({ 'filter': filter, 'page': currentPage })
         }
 
         if (keyword) {
-            setSearchParams({'keyword': keyword, 'page': currentPage})
+            setSearchParams({ 'keyword': keyword, 'page': currentPage })
         }
-        
+
         const pages = Math.ceil(length / numberPerPage)
         if (currentPage > 3) {
             if ((pages - currentPage) === 2) {
@@ -74,7 +74,7 @@ export default function Products() {
         }
     }
 
-    const set = (value)=> {
+    const set = (value) => {
         setLength(value)
     }
 
@@ -83,6 +83,10 @@ export default function Products() {
             <Navbar />
             <HomeNavbar filter={filter} />
             <section className="bg-gray-200">
+                <div className="w-full flex justify-center">
+                    {filter ? <p className="text-2xl text-gray-700 p-5">{filter.toLocaleUpperCase()}</p> : null}
+                    {keyword ? <p className="text-2xl text-gray-700 p-5">Results for {keyword}</p> : null}
+                </div>
                 <div className="md:py-4 flex justify-center">
                     <DisplayProducts page={currentPage} set={set} filter={null} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" />
                 </div>

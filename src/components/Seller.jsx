@@ -56,17 +56,17 @@ export default function Seller({ shopID }) {
                     </div>
                 </div>
                 <div className="md:flex hidden flex-col justify-center">
-                    <button className="flex border py-3 px-2 lg:px-5 text-gray-600 gap-x-2 justify-center hover:bg-primary hover:text-white">
+                    <a href={`/shop?shop=${shop.id}&page=1`} className="flex border py-3 px-2 lg:px-5 text-gray-600 gap-x-2 justify-center hover:bg-primary hover:text-white">
                         <ShoppingBag className="lg:block hidden"/>
                         <p className="md:text-base text-xs">View Shop</p>
-                    </button>
+                    </a>
                 </div>
             </div>
             <div className="md:hidden flex w-full">
-                <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center w-full">
+                <a href={`/shop?shop=${shop.id}&page=1`} className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center w-full">
                     <ShoppingBag />
                     <p>View Shop</p>
-                </button>
+                </a>
             </div>
         </div >
     )

@@ -15,7 +15,8 @@ import {
   ProductPage,
   Products,
   Cart,
-  Shop
+  Shop,
+  ShopPage
 } from "pages"
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
 
         <Route exact path="/product/:id" element={<ProductPage />} />
         <Route exact path="/products" element={<Products />} />
+        <Route exact path="/shop" element={<ShopPage />} />
         <Route exact path="/cart" element={<Cart />} />
 
       </Routes>
