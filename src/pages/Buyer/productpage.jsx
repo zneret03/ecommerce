@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { axiosRequest } from "api"
 import { useLocation } from "react-router-dom"
-import { Navbar, FeatureProduct, Footer } from "components"
+import { Navbar, FeatureProduct, Footer, Seller } from "components"
 import { Plus, Minus, ShoppingCart } from "react-feather"
 import swal from "sweetalert2"
 
@@ -62,7 +62,7 @@ export default function ProductPage() {
         <>
             <Navbar />
             <section className="bg-gray-200 w-100 p-3">
-                <div className="bg-white px-3 py-4 flex flex-col md:flex-row">
+                <div className="bg-white px-3 py-4 flex flex-col md:flex-row mb-3">
                     <div className="w-full md:w-3/6 overflow-hidden">
                         <img className="object-cover w-full h-full" src={`${imageUrl}/${prodID}`} alt="" />
                     </div>
@@ -85,15 +85,6 @@ export default function ProductPage() {
                                             <div className="text-base ">{product.category}</div>
                                             <div className="text-base">Stock:</div>
                                             <div className="text-base ">{product.quantity}</div>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col gap-y-2">
-                                        <div className="text-lg font-medium mr-5 text-gray-700">Seller</div>
-                                        <div className="grid grid-cols-2 w-max gap-x-7 gap-y-2">
-                                            <div className="text-base">Fullname:</div>
-                                            <div className="text-base ">{product.seller}</div>
-                                            <div className="text-base">Address:</div>
-                                            <div className="text-base ">{product.sellerAddress}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,6 +111,7 @@ export default function ProductPage() {
                         </div>
                         : null}
                 </div>
+                <Seller shopID={product.shop} />
                 <div className="bg-white py-5 mt-3 ">
                     <FeatureProduct name={"Similar"} filter={"Similar"} />
                 </div>
