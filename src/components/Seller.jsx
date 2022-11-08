@@ -25,7 +25,7 @@ export default function Seller({ shopID }) {
 
     return (
         <div className="flex flex-col md:flex-row gap-y-2 px-2 lg:px-5 bg-white py-5">
-            <div className="w-2/4 flex flex-row">
+            <div className="md:w-2/4 flex flex-row w-full">
                 <div className="w-24 h-24 rounded-full mr-5 overflow-hidden border">
                     <img className="object-cover w-full h-full" src={`${imageUrl}/${shop.id}`} alt="" />
                 </div>
@@ -34,7 +34,7 @@ export default function Seller({ shopID }) {
                 </div>
             </div>
 
-            <div className="flex flex-row gap-y-1 justify-between border-t-2 md:border-l-2 md:border-t-0 md:pl-10 w-full px-5">
+            <div className="flex flex-col md:flex-row gap-y-1 justify-between border-t-2 md:border-l-2 md:border-t-0 md:pl-10 w-full px-5">
                 <div className="md:ml-1 lg:ml-5 grid grid-rows-2 py-2 py-4 text-sm">
                     <div className=" flex flex-row gap-x-2 md:gap-y-0 gap-y-2">
                         <p className="text-gray-400">Products</p>
@@ -56,14 +56,14 @@ export default function Seller({ shopID }) {
                     </div>
                 </div>
                 <div className="md:flex hidden flex-col justify-center">
-                    <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center hover:bg-primary hover:text-white">
-                        <ShoppingBag />
-                        <p>View Shop</p>
+                    <button className="flex border py-3 px-2 lg:px-5 text-gray-600 gap-x-2 justify-center hover:bg-primary hover:text-white">
+                        <ShoppingBag className="lg:block hidden"/>
+                        <p className="md:text-base text-xs">View Shop</p>
                     </button>
                 </div>
             </div>
-            <div className="md:hidden flex ">
-                <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center ">
+            <div className="md:hidden flex w-full">
+                <button className="flex border py-3 px-5 text-gray-600 gap-x-2 justify-center w-full">
                     <ShoppingBag />
                     <p>View Shop</p>
                 </button>
