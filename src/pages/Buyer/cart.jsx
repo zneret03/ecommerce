@@ -10,6 +10,7 @@ export default function Cart() {
     const [isLoaded, setLoaded] = useState(false)
     const [subtotal, setSubtotal] = useState(0)
     const [shipping, setShipping] = useState(0)
+    const [tax, setTax] = useState(0)
     const [total, setTotal] = useState(0)
     const [empty, setEmpty] = useState(true)
 
@@ -24,15 +25,18 @@ export default function Cart() {
                 
                 if (prod) {
                     const prices = prod.map((product) => {
-                        return product.price
+                        return product.price * product.quantity
                     })
 
                     const subPrice = prices.reduce((a, b) => a + b, 0)
                     const shippingPrice = 0
-                    const totalPrice = subPrice + shippingPrice
+                    const taxPrice = 0
+                    const totalPrice = (subPrice + shippingPrice) - taxPrice
+                    
 
                     setSubtotal(subPrice)
                     setShipping(shippingPrice)
+                    setTax(taxPrice)
                     setTotal(totalPrice)
 
                     setLoaded(true)
@@ -55,7 +59,7 @@ export default function Cart() {
             }
 
             const prices = filtered.map((product) => {
-                return product.price
+                return product.price * product.quantity
             })
 
             const subPrice = prices.reduce((a, b) => a + b, 0)
@@ -106,8 +110,9 @@ export default function Cart() {
                                     </div>
                                 </div>
                                 <div className="flex flex-col justify-between">
-                                    <div>
-                                        <p className="font-medium text-3xl text-primary">₱ {product.price}</p>
+                                    <div className="flex flex-col gap-y-1 items-end">
+                                        <p className="font-medium text-3xl text-primary">₱ {(product.price * product.quantity).toLocaleString()}</p>
+                                        <p className="text-xl text-gray-700">₱ {product.price.toLocaleString()}</p>
                                     </div>
                                     <button onClick={() => { remove(product.id) }} className="text-red-600">Remove</button>
                                 </div>
@@ -127,18 +132,22 @@ export default function Cart() {
                         <div className="flex flex-col gap-y-2">
                             <div className="flex flex-row justify-between">
                                 <p>Subtotal</p>
-                                <p>₱ {subtotal}</p>
+                                <p>₱ {subtotal.toLocaleString()}</p>
                             </div>
                             <div className="flex flex-row justify-between">
                                 <p>Shipping</p>
-                                <p>₱ {shipping}</p>
+                                <p>₱ {shipping.toLocaleString()}</p>
+                            </div>
+                            <div className="flex flex-row justify-between">
+                                <p>Tax</p>
+                                <p>₱ {tax.toLocaleString()}</p>
                             </div>
                         </div>
                     </div>
                     <div className="flex flex-col w-full text-2xl font-medium gap-y-5 mt-10 md:mt-0">
                         <div className="flex flex-row justify-between">
                             <p>Total</p>
-                            <p className="font-bold">₱ {total}</p>
+                            <p className="font-bold">₱ {total.toLocaleString()}</p>
                         </div>
                         <button className="w-full bg-primary text-white py-5">Checkout</button>
                     </div>
