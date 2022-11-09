@@ -13,6 +13,7 @@ export default function Cart() {
     const [tax, setTax] = useState(0)
     const [total, setTotal] = useState(0)
     const [empty, setEmpty] = useState(true)
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
         const getCart = async () => {
@@ -53,6 +54,7 @@ export default function Cart() {
         if (status === 200) {
             const filtered = products.filter(product => { return product.id !== id })
             setProducts(filtered)
+            setRefresh(prevState => !prevState)
 
             if (filtered.length === 0) {
                 setEmpty(true)
@@ -74,7 +76,7 @@ export default function Cart() {
 
     return (
         <>
-            <Navbar />
+            <Navbar refresh={refresh}/>
             <div className="flex flex-col md:flex-row w-screen bg-white text-gray-800">
                 <div className="md:w-2/3 p-8">
                     <p className="font-bold text-3xl mb-5">Cart</p>

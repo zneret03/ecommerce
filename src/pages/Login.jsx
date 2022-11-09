@@ -62,7 +62,6 @@ export default function Login() {
       if (status === 401) {
         swal.fire({
           title: "Email or password is incorrect!",
-          text: "Please love me again...",
           icon: "warning",
         })
       }

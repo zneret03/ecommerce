@@ -3,6 +3,7 @@ import { Navbar, Footer, InputField } from 'components'
 import { MapPin } from "react-feather"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
+import { useNavigate } from "react-router-dom"
 
 const initialState = {
     fullname: "",
@@ -20,6 +21,8 @@ export default function Checkout() {
     const [shipping, setShipping] = useState(0)
     const [tax, setTax] = useState(0)
     const [total, setTotal] = useState(0)
+
+    const navigate = useNavigate();
 
     const [{ fullname, phonenumber, address }, setState] = useState(initialState)
 
@@ -69,7 +72,11 @@ export default function Checkout() {
             swal.fire({
                 title: "Order Successfull!",
                 icon: "success",
-            })
+            }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate('/mypurchase')
+                }
+              })
         }
     }
 
@@ -141,7 +148,7 @@ export default function Checkout() {
                                     <div className="py-3 px-10 bg-white w-full">
                                         <div className="grid grid-cols-6 bg-white">
                                             <div className="col-span-3 flex flex-col gap-y-2">
-                                                <p className="text-sm text-gray-600">{product.seller}</p>
+                                                <p className="text-sm text-gray-600">{product.shop}</p>
                                                 <div className="flex flex-row gap-x-5 items-center">
                                                     <div className="bg-gray-200 w-16 h-16 hidden md:block">
                                                         <img className="object-cover w-full h-full" src={`${imageUrl}/${product.id}`} alt="" />
