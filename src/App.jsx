@@ -16,7 +16,8 @@ import {
   Products,
   Cart,
   Shop,
-  ShopPage
+  ShopPage,
+  Checkout
 } from "pages"
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/shop" element={<ShopPage />} />
         <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/checkout" element={<Checkout />} />
 
       </Routes>
     </Router>

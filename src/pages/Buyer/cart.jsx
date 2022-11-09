@@ -20,9 +20,9 @@ export default function Cart() {
             const { status, data } = response
             if (status === 200) {
                 const prod = data.data
-                
+
                 setProducts(prod)
-                
+
                 if (prod) {
                     const prices = prod.map((product) => {
                         return product.price * product.quantity
@@ -32,7 +32,7 @@ export default function Cart() {
                     const shippingPrice = 0
                     const taxPrice = 0
                     const totalPrice = (subPrice + shippingPrice) - taxPrice
-                    
+
 
                     setSubtotal(subPrice)
                     setShipping(shippingPrice)
@@ -120,7 +120,7 @@ export default function Cart() {
                         )
                     }) : null}
 
-                    <div className={`${(empty) ? "flex" :"hidden"} flex-col justify-center items-center p-10 gap-y-3 text-gray-800`}>
+                    <div className={`${(empty) ? "flex" : "hidden"} flex-col justify-center items-center p-10 gap-y-3 text-gray-800`}>
                         <Frown className="w-20 h-20" />
                         <p className="font-medium text-xl">Empty Cart</p>
                     </div>
@@ -149,7 +149,9 @@ export default function Cart() {
                             <p>Total</p>
                             <p className="font-bold">₱ {total.toLocaleString()}</p>
                         </div>
-                        <button className="w-full bg-primary text-white py-5">Checkout</button>
+                        <a href="/checkout">
+                            <button className="w-full bg-primary text-white py-5">Checkout</button>
+                        </a>
                     </div>
                 </div>
             </div>
