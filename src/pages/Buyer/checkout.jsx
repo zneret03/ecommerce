@@ -145,7 +145,7 @@ export default function Checkout() {
 
                             {isLoaded ? products.map((product) => {
                                 return (
-                                    <div className="py-3 px-10 bg-white w-full">
+                                    <div className="py-3 px-10 bg-white w-full" key={product.id}>
                                         <div className="grid grid-cols-6 bg-white">
                                             <div className="col-span-3 flex flex-col gap-y-2">
                                                 <p className="text-sm text-gray-600">{product.shop}</p>
@@ -173,7 +173,7 @@ export default function Checkout() {
                     </div>
                     <div className="flex bg-gray-100 px-5">
                         <div className="flex bg-white w-full mb-10 justify-end p-5">
-                            <div className="flex flex-col w-2/5 text-sm text-gray-500 gap-y-2">
+                            <div className="flex flex-col w-full md:w-2/5 text-sm text-gray-500 gap-y-2">
                                 <div className="flex flex-row justify-between items-center">
                                     <p>Merchandise Subtotal:</p>
                                     <p>₱ {subtotal.toLocaleString()}</p>

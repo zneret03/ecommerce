@@ -11,9 +11,9 @@ export default function ProductCard({ imageUrl, props }) {
                     <div className="text-base md:text-lg text-gray-700 truncate h-12 group-hover:text-white">{props.productName}</div>
                     <div className="flex flex-row justify-between items-end ">
                         <span className="text-base md:text-xl text-primary group-hover:text-white">₱{props.price.toLocaleString()}</span>
-                        <div className="flex flex-row gap-x-1 items-center text-sm">
-                            <p className="text-gray-500">{props.sold}</p>
-                            <p className="text-gray-500">Sold</p>
+                        <div className="flex flex-row gap-x-1 items-center text-sm group-hover:text-white/75 text-gray-500 ">
+                            <p>{props.sold}</p>
+                            <p>Sold</p>
                         </div>
                     </div>
                 </div>
