@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar, Footer } from 'components'
 import { axiosRequest } from "api"
-import { Frown } from "react-feather"
-import { MapPin } from "react-feather"
+import { Frown, MapPin } from "react-feather"
+import swal from "sweetalert2"
 
 export default function MyPurchase() {
     const order_url = '/api/v1/mypurchase'
     const imageUrl = "/api/v1/images"
     const [products, setProducts] = useState([])
     const [isLoaded, setLoaded] = useState(false)
+    const status_url = "/api/v1/admin/order/status"
 
     useEffect(() => {
         const getCart = async () => {
@@ -28,6 +29,31 @@ export default function MyPurchase() {
         const options = { month: 'numeric', day: 'numeric', year: "numeric" };
         const newDate = new Date(date).toLocaleDateString('en-US', options)
         return <p>{newDate}</p>
+    }
+
+    const receive = async(orderID) => {
+        try {
+            const data = {status: "COMPLETE", id: orderID}
+            const response = await axiosRequest.post(status_url, data)
+            const { status } = response
+            if (status === 200) {
+                swal.fire({
+                    title: "Order received!",
+                    text: "Thank you for purchasing.",
+                    icon: "success",
+                })
+                const updated_products = products.map((product) => {
+                    if (product.orderID === orderID) {
+                      product.status = "COMPLETE"
+                    }
+                    return product
+                  })
+                  setProducts(updated_products)
+            }
+        }
+        catch (e) {
+
+        }
     }
 
     return (
@@ -93,15 +119,28 @@ export default function MyPurchase() {
                                             <p className="md:hidden block">Date: </p>
                                             {getDate(product.dateCreated)}
                                         </div>
-                                        <div className="hidden md:flex items-center  md:justify-end text-primary ">
-                                            <p>{product.status}</p>
+                                        <div className="hidden md:flex items-center  font-medium md:justify-end text-primary ">
+                                            {product.status === 'COMPLETE' ?
+                                            <p className="text-green-600">{product.status}</p>
+                                            : <p>{product.status}</p>
+                                            }
                                         </div>
                                     </div>
-                                    <div className="flex flex-col md:flex-row md:items-center gap-x-2 text-gray-600">
-                                        < MapPin className="w-4 h-4" />
-                                        <p className="font-medium">{product.fullname}</p>
-                                        <p className="font-medium">{product.number}</p>
-                                        <p>{product.address}</p>
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between text-gray-600">
+                                        <div className="flex flex-col md:flex-row md:items-center gap-x-2">
+                                            < MapPin className="w-4 h-4" />
+                                            <p className="font-medium">{product.fullname}</p>
+                                            <p className="font-medium">{product.number}</p>
+                                            <p>{product.address}</p>
+                                        </div>
+
+                                        {product.status === "SHIPPED" ?
+                                            <button onClick={()=> {receive(product.orderID)}} className="flex justify-center items-center bg-primary text-white px-4 py-2 rounded">
+                                                <span>Order Received</span>
+                                            </button>
+                                            : ""
+                                        }
+
                                     </div>
                                 </div>
                             )

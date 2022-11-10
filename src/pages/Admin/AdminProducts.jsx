@@ -89,57 +89,88 @@ export default function AdminProducts() {
     {
       field: "image",
       headerName: "Image",
-      width: 200,
+      width: 100,
       renderCell: (params) => {
-        return (<img alt="" className="scale-75" src={`${img_url}/${params.row.id}`}/>)
+        return (<img alt="" className="scale-100" src={`${img_url}/${params.row.id}`} />)
       }
     },
     {
       field: "productName",
       headerName: "Product Name",
       width: 150,
-      editable: true,
     },
     {
-      field: "description",
       headerName: "Description",
-      width: 150,
-      editable: true,
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="w-full" key={params.row.id}>
+            <p className="truncate overflow-hidden ">{params.row.description}</p>
+          </div>
+        )
+      }
     },
     {
       field: "price",
       headerName: "Price",
       type: "number",
       width: 100,
-      editable: true,
     },
     {
       field: "category",
       headerName: "Category",
       type: "string",
       width: 120,
-      editable: true,
     },
     {
       field: "gender",
       headerName: "Gender",
       type: "string",
       width: 100,
-      editable: true,
     },
     {
       field: "dateCreated",
       headerName: "Date Created",
       type: "string",
       width: 150,
-      editable: true,
+      renderCell: (params) => {
+        const getDate = (date) => {
+          const time = new Date(date).toLocaleTimeString('en-US')
+          const options = { time: 'numeric', month: 'numeric', day: 'numeric', year: "numeric" };
+          const newDate = new Date(date).toLocaleDateString('en-US', options)
+          return (
+            <div className="flex flex-col gap-y-2">
+              <p>{time}</p>
+              <p>{newDate}</p>
+            </div>
+          )
+        }
+        return (
+          <div key={params.row.id}>{getDate(params.row.dateCreated)}</div>
+        )
+      }
     },
     {
       field: "dateUpdated",
       headerName: "Date Updated",
       type: "string",
       width: 150,
-      editable: true,
+      renderCell: (params) => {
+        const getDate = (date) => {
+          const time = new Date(date).toLocaleTimeString('en-US')
+          const options = { time: 'numeric', month: 'numeric', day: 'numeric', year: "numeric" };
+          const newDate = new Date(date).toLocaleDateString('en-US', options)
+          return (
+            <div className="flex flex-col gap-y-2">
+              <p>{time}</p>
+              <p>{newDate}</p>
+            </div>
+          )
+        }
+        return (
+          <div key={params.row.id}>{params.row.dateUpdate? getDate(params.row.dateUpdated): ""}</div>
+        )
+      }
     },
     {
       field: "Button",
@@ -148,7 +179,7 @@ export default function AdminProducts() {
       width: 150,
       renderCell: (params) => {
         return (
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2" key={params.row.id}>
             <Link to={`/admin/updateProducts/${params.row.id}`}>
               <Button
                 color="primary"

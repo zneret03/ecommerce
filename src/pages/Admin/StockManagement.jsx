@@ -43,6 +43,22 @@ export default function StockManagement() {
       field: "dateUpdated",
       headerName: "Date Updated",
       width: 200,
+      renderCell: (params) => {
+        const getDate = (date) => {
+          const time = new Date(date).toLocaleTimeString('en-US')
+          const options = { time: 'numeric', month: 'numeric', day: 'numeric', year: "numeric" };
+          const newDate = new Date(date).toLocaleDateString('en-US', options)
+          return (
+            <div className="flex flex-col gap-y-2">
+              <p>{time}</p>
+              <p>{newDate}</p>
+            </div>
+          )
+        }
+        return (
+          <div>{getDate(params.row.dateUpdated)}</div>
+        )
+      }
     },
     {
       field: "action",

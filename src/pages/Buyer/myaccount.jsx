@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { axiosRequest } from "api"
-import swal from "sweetalert2"
 
 // components
 import { InputField, Navbar } from "components"
@@ -13,12 +12,11 @@ const initialState = {
     age: "",
     gender: "",
     userType: "",
-    password: "",
 }
 
 export default function MyAccount() {
     const [
-        { firstName, lastName, email, address, age, gender, password },
+        { firstName, lastName, email, address, age, gender },
         setState,
     ] = useState(initialState)
 
@@ -49,16 +47,6 @@ export default function MyAccount() {
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        const datas = {
-            firstName,
-            lastName,
-            email,
-            address,
-            age,
-            gender,
-            password,
-        }
-
     }
 
     /**
