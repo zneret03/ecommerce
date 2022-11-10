@@ -18,7 +18,7 @@ const navItems = [
     {
         id: 3,
         title: "My Account",
-        path: "/",
+        path: "/myaccount",
     },
     {
         id: 4,
