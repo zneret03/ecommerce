@@ -129,7 +129,7 @@ export default function ProductPage() {
                     : null
                 }
                 <div className="bg-white py-5 mt-3 ">
-                    <FeatureProduct name={"Similar"} filter={"Similar"} />
+                    <FeatureProduct name={"Similar Products"} filter={"similar"} />
                 </div>
             </section>
             <Footer />

@@ -31,9 +31,9 @@ export default function MyPurchase() {
         return <p>{newDate}</p>
     }
 
-    const receive = async(orderID) => {
+    const receive = async (orderID) => {
         try {
-            const data = {status: "COMPLETE", id: orderID}
+            const data = { status: "COMPLETE", id: orderID }
             const response = await axiosRequest.post(status_url, data)
             const { status } = response
             if (status === 200) {
@@ -44,11 +44,11 @@ export default function MyPurchase() {
                 })
                 const updated_products = products.map((product) => {
                     if (product.orderID === orderID) {
-                      product.status = "COMPLETE"
+                        product.status = "COMPLETE"
                     }
                     return product
-                  })
-                  setProducts(updated_products)
+                })
+                setProducts(updated_products)
             }
         }
         catch (e) {
@@ -87,17 +87,20 @@ export default function MyPurchase() {
                         {isLoaded ? products.map((product) => {
                             return (
                                 <div className="py-3 px-5 md:px-10 bg-white w-full flex flex-col gap-y-5" key={product.orderID}>
-                                    <div className="md:grid md:grid-cols-8 bg-white flex flex-col gap-y-1">
+                                    <div className="md:grid md:grid-cols-8 bg-white flex flex-col gap-y-2">
                                         <div className="md:col-span-3 flex flex-col gap-y-2">
                                             <div className="flex flex-row justify-between">
                                                 <p className="text-sm text-gray-600">{product.shop}</p>
                                                 <div className="flex md:hidden items-center  justify-end text-primary ">
-                                                    <p>{product.status}</p>
+                                                    {product.status === 'COMPLETE' ?
+                                                        <p className="text-green-600">{product.status}</p>
+                                                        : <p>{product.status}</p>
+                                                    }
                                                 </div>
                                             </div>
 
                                             <div className="flex flex-row gap-x-5 items-center">
-                                                <div className="bg-gray-200 md:w-16 md:h-16 w-32 h-32">
+                                                <div className="bg-gray-200 md:w-16 md:h-16 w-24 h-24">
                                                     <img className="object-cover w-full h-full" src={`${imageUrl}/${product.id}`} alt="" />
                                                 </div>
                                                 <p className="text-xl">{product.productName}</p>
@@ -121,8 +124,8 @@ export default function MyPurchase() {
                                         </div>
                                         <div className="hidden md:flex items-center  font-medium md:justify-end text-primary ">
                                             {product.status === 'COMPLETE' ?
-                                            <p className="text-green-600">{product.status}</p>
-                                            : <p>{product.status}</p>
+                                                <p className="text-green-600">{product.status}</p>
+                                                : <p>{product.status}</p>
                                             }
                                         </div>
                                     </div>
@@ -135,7 +138,7 @@ export default function MyPurchase() {
                                         </div>
 
                                         {product.status === "SHIPPED" ?
-                                            <button onClick={()=> {receive(product.orderID)}} className="flex justify-center items-center bg-primary text-white px-4 py-2 rounded">
+                                            <button onClick={() => { receive(product.orderID) }} className="flex justify-center items-center bg-primary text-white px-4 py-2 rounded mt-2 md:mt-0">
                                                 <span>Order Received</span>
                                             </button>
                                             : ""

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { HomeNavbar, Navbar, DisplayProducts, Footer } from 'components'
+import { HomeNavbar, Navbar, DisplayProducts, DisplayShops, Footer } from 'components'
 import { useSearchParams } from "react-router-dom"
 import { ChevronLeft, ChevronRight } from "react-feather"
 
@@ -88,7 +88,10 @@ export default function Products() {
                     {keyword ? <p className="text-2xl text-gray-700 p-5">Results for {keyword}</p> : null}
                 </div>
                 <div className="md:py-4 flex justify-center">
-                    <DisplayProducts page={currentPage} set={set} filter={null} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" />
+                {filter === 'shops'
+                    ? <DisplayShops className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" page={currentPage} set={set} filter={null}/>
+                    : <DisplayProducts className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4" page={currentPage} set={set} filter={null} />
+                }
                 </div>
                 {length ?
                     <div className="flex flex-row justify-center w-full text-gray-900/50 text-lg md:text-xl gap-x-3 md:gap-x-5 py-10">

@@ -41,8 +41,9 @@ export default function Home() {
       <HomeNavbar />
       <Banner />
       <div className="flex flex-col gap-y-5 mb-5">
-        <FeatureProduct filter={'featured'} name={'Featured'} />
-        <FeatureProduct filter={'latest'} name={'Latest'} />
+        <FeatureProduct filter={'recommended'} name={'Recommended Products'} />
+        <FeatureProduct filter={'latest'} name={'Latest Products'} />
+        <FeatureProduct filter={'shops'} name={'Browse Local Shops'} />
       </div>
       <Footer />
     </>

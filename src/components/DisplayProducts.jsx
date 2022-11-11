@@ -4,15 +4,21 @@ import { ProductCard } from 'components'
 import { axiosRequest } from "api"
 import { useSearchParams } from "react-router-dom"
 import { Frown } from "react-feather"
+import { useLocation } from "react-router-dom"
 
 export default function DisplayProducts({ className, set, filter }) {
     const product_url = '/api/v1/products'
     const img_url = '/api/v1/images'
-
+    const query = useLocation()
     const [products, setProducts] = useState([])
     const [searchParams] = useSearchParams()
-    const url = (!filter) ? `${product_url}?${searchParams}` : `${product_url}?filter=${filter}&page=1`
+    let url = (!filter) ? `${product_url}?${searchParams}` : `${product_url}?filter=${filter}&page=1`
     const [isLoaded, setLoaded] = useState(false)
+
+    if (filter === 'similar') {
+        const id = query.pathname.substring(query.pathname.lastIndexOf('/') + 1)
+        url = `${product_url}?filter=${filter}&id=${id}&page=1`
+    }
 
     const setLength = (length) => {
         set(length)
