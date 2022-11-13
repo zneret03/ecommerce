@@ -34,12 +34,12 @@ export default function Sidebar() {
   }, [navigate])
 
   return (
-    <section className={`${toggled ? "bg-amber-900" : ""} md:bg-amber-900 md:w-1/4 h-full`}>
+    <section className={`${toggled ? "bg-amber-900" : ""} md:bg-amber-900 md:w-1/4 h-full md:sticky md:top-0`}>
       <button onClick={toogleMenu} className={`${toggled ? "text-white" : "text-primary"}
        inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden`}>
         <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
       </button>
-      <div className={`${toggled ? "" : "hidden"} md:block md:bg-amber-900`}>
+      <div className={`${toggled ? "" : "hidden"} md:block bg-amber-900`}>
         <aside className="sticky top-0 w-full h-max py-12 px-4">
           <div className="text-center text-white flex flex-col items-center justify-center">
             <img

@@ -203,6 +203,7 @@ export default function AdminProducts() {
     <PrivateLayout
       title="Products"
       description="all products add edit and delete shall fall in this page"
+      size='md:h-screen'
     >
       <div className="flex justify-end">
         <Link to="/admin/addProducts">

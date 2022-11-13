@@ -153,6 +153,7 @@ export default function UpdateProducts() {
     <PrivateLayout
       title="Update Products"
       description="this page where you can update products"
+      size='md:h-screen'
     >
       <Back to="/admin/products" />
       <section className="pt-8">

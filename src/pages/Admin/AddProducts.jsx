@@ -152,6 +152,7 @@ export default function AddProducts() {
     <PrivateLayout
       title="Create New Products"
       description="this page where you can create different products you like"
+      size='md:h-screen'
     >
       <Back to="/admin/products" />
       <section className="pt-8">

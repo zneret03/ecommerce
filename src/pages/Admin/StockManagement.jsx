@@ -195,6 +195,7 @@ export default function StockManagement() {
     <PrivateLayout
       title="Stock Management"
       description="all product stocks shall fall in this page"
+      size='md:h-screen'
     >
       <Table data={rows} columns={columns} loading={false} />
     </PrivateLayout>

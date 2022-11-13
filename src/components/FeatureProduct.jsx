@@ -26,10 +26,10 @@ export default function FeatureProduct({ name, filter }) {
                 </a>
                 <div className="mx-4 w-full bg-gray-200 h-1 "></div>
                 <div className="hidden sm:grid grid-cols-2 gap-2">
-                    <button onClick={left} className="bg-gray-200 text-gray-600 hover:bg-primary hover:text-white">
+                    <button onClick={left} className="bg-gray-200 text-gray-600 hover:bg-primary hover:text-white flex items-center px-2">
                         <ChevronLeft />
                     </button>
-                    <button onClick={right} className="bg-gray-200 text-gray-600 hover:bg-primary hover:text-white">
+                    <button onClick={right} className="bg-gray-200 text-gray-600 hover:bg-primary hover:text-white flex items-center px-2">
                         <ChevronRight />
                     </button>
                 </div>

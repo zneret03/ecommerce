@@ -189,6 +189,7 @@ export default function Orders() {
     <PrivateLayout
       title="Orders"
       description="all user orders that belongs to specific seller shall fall in this page"
+      size='md:h-screen'
     >
       <Table data={rows} columns={columns} loading={false} />
     </PrivateLayout>

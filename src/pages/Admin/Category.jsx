@@ -269,6 +269,7 @@ export default function Category() {
     <PrivateLayout
       title="Category"
       description="all product category shall fall in this page"
+      size='md:h-screen'
     >
       <div className="flex justify-end">
         <button

@@ -99,9 +99,10 @@ export default function Orders() {
         <PrivateLayout
             title="Shop"
             description="About Shop"
+            size="md:h-screen"
         >
             <section className="pt-8">
-                <form onSubmit={(event) => onSubmit(event)} className="grid grid-cols-2 gap-10">
+                <form onSubmit={(event) => onSubmit(event)} className="grid md:grid-cols-2 grid-rows-2 gap-10">
                     <div className="w-full flex flex-col gap-3">
                         <InputField
                             type="text"
