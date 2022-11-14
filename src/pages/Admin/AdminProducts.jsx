@@ -91,7 +91,7 @@ export default function AdminProducts() {
       headerName: "Image",
       width: 100,
       renderCell: (params) => {
-        return (<img alt="" className="scale-100" src={`${img_url}/${params.row.id}`} />)
+        return (<img alt="" className="scale-100" src={`${img_url}/${params.row.image}`} />)
       }
     },
     {

@@ -3,6 +3,7 @@ import { PrivateLayout, InputField, ImageField } from "components"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom"
 
 const initialState = {
     shopName: "",
@@ -12,13 +13,15 @@ const initialState = {
 
 export default function Orders() {
     const shopUrl = "/api/v1/shop"
-    const imageUrl = "/api/v1/shop/images"
+    const imageUrl = "/api/v1/images"
     const [
-        { shopName, address, description },
+        { shopName, address, description, image },
         setState,
     ] = useState(initialState)
 
     const [imageSelected, setSelected] = useState(null);
+
+    const navigate = useNavigate();
     const formData = new FormData();
 
     const [isNew, setNew] = useState(true)
@@ -81,7 +84,7 @@ export default function Orders() {
                     icon: "success",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.reload(false);
+                        navigate('/admin')
                     }
                 })
             }
@@ -99,7 +102,7 @@ export default function Orders() {
         <PrivateLayout
             title="Shop"
             description="About Shop"
-            size="md:h-screen"
+            size="md:h-full"
         >
             <section className="pt-8">
                 <form onSubmit={(event) => onSubmit(event)} className="grid md:grid-cols-2 grid-rows-2 gap-10">
@@ -129,7 +132,7 @@ export default function Orders() {
                             required
                             className="form-control h-full block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-amber-600 focus:outline-none"
                         />
-                        <div className="text-center">
+                        <div className="text-center hidden md:flex">
                             {isNew ?
                                 <button
                                     type="submit"
@@ -146,7 +149,27 @@ export default function Orders() {
 
                         </div>
                     </div>
-                    <ImageField setImageData={setImageData} imageUrl={!isNew ? imageUrl : null} />
+                    <div className="flex flex-col">
+                        <p>Shop Image</p>
+                        <ImageField setImageData={setImageData} imageUrl={!isNew ? `${imageUrl}/${image}` : null} className="hidden md:flex" />
+                    </div>
+
+                    <div className="text-center md:hidden flex">
+                        {isNew ?
+                            <button
+                                type="submit"
+                                className="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                            >
+                                Create Shop</button> :
+                            <button
+                                type="submit"
+                                className="inline-block px-7 py-3 bg-amber-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-amber-700 hover:shadow-lg focus:bg-amber-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                            >
+                                Update Shop
+                            </button>
+                        }
+
+                    </div>
                 </form>
             </section>
         </PrivateLayout>

@@ -67,7 +67,7 @@ export default function ProductPage() {
             <section className="bg-gray-200 w-100 p-3">
                 <div className="bg-white px-3 py-4 flex flex-col md:flex-row mb-3">
                     <div className="w-full md:w-3/6 overflow-hidden">
-                        <img className="object-cover w-full h-full" src={`${imageUrl}/${prodID}`} alt="" />
+                        <img className="object-cover w-full h-full" src={`${imageUrl}/${product.image}`} alt="" />
                     </div>
                     {isLoaded ?
                         <div className="flex flex-col justify-between w-full mt-5 md:mt-2 md:mt-0 md:pl-10 md:pr-5 md:w-3/6">

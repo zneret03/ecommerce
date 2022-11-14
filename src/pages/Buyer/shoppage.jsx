@@ -96,7 +96,7 @@ export default function Shoppage() {
                     <div className="bg-white">
                         <div className="flex flex-col md:flex-row w-screen md:p-5 p-3">
                             <div className="md:w-60 w-48 overflow-hidden border mr-10">
-                                <img className="object-cover w-full h-full" src={`${imageUrl}/${shopID}`} alt="" />
+                                <img className="object-cover w-full h-full" src={`${imageUrl}/${shop.image}`} alt="" />
                             </div>
                             <div className="flex flex-col pr-2 md:w-4/6 w-full mt-3 md:mt-0">
                                 <div className="text-3xl text-primary whitespace-normal mb-2">{shop.shopName}</div>

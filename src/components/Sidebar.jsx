@@ -24,6 +24,10 @@ export default function Sidebar() {
 
           if (status === 200) {
             setUser(data.data)
+            
+            if (!data.data.shop) {
+              navigate('/admin/shop')
+            }
           }
       } catch (e) {
           navigate('/404')

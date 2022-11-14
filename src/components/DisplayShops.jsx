@@ -39,9 +39,9 @@ export default function DisplayShops({ className, set, filter }) {
                 {shops.map((shop) => {
                     return (
                         <a href={`/shop?shop=${shop.id}&page=1`} key={shop.id}>
-                            <div className="m-1 group flex flex-col w-full lg:w-72 bg-white drop-shadow overflow-hidden inline-block hover:outline outline-primary">
+                            <div className="m-1 group flex flex-col w-full lg:w-60 bg-white drop-shadow overflow-hidden inline-block hover:outline outline-primary">
                                 <div className="h-52 md:h-60 overflow-hidden">
-                                    <img className="object-cover w-full h-full" src={`${img_url}/${shop.id}`} alt={`${shop.shopName}`} />
+                                    <img className="object-cover w-full h-full" src={`${img_url}/${shop.image}`} alt={`${shop.shopName}`} />
                                 </div>
                                 <div className="flex flex-col justify-between p-3 group-hover:bg-primary">
                                     <div className="text-xl truncate group-hover:text-white text-primary">{shop.shopName}</div>

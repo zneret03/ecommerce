@@ -19,6 +19,8 @@ export default function UpdateProducts() {
   const prod_url = '/api/v1/admin/product'
   const image_url = '/api/v1/images'
 
+  const [image, setImage] = useState([])
+
   const query = useLocation()
   const formData = new FormData();
 
@@ -137,6 +139,7 @@ export default function UpdateProducts() {
         const prod_data = data.data
         if (status === 200) {
           setState(prod_data)
+          setImage(data.data.image)
         }
       }
       catch (e) {
@@ -235,7 +238,7 @@ export default function UpdateProducts() {
 
               <div>
                 <p>Product Image</p>
-                <ImageField setImageData={setImageData} imageUrl={`${image_url}/${prodID}`} />
+                <ImageField setImageData={setImageData} imageUrl={`${image_url}/${image}`} />
               </div>
             </div>
             <div className="md:w-1/2 md:pr-4 text-center lg:text-left mt-8">

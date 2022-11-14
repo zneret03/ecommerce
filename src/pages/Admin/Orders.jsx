@@ -48,7 +48,7 @@ export default function Orders() {
       headerName: "Image",
       width: 100,
       renderCell: (params) => {
-        return (<img alt="" className="scale-100" src={`${img_url}/${params.row.productID}`} />)
+        return (<img alt="" className="scale-100" src={`${img_url}/${params.row.image}`} />)
       }
     },
     {

@@ -101,7 +101,7 @@ export default function MyPurchase() {
 
                                             <div className="flex flex-row gap-x-5 items-center">
                                                 <div className="bg-gray-200 md:w-16 md:h-16 w-24 h-24">
-                                                    <img className="object-cover w-full h-full" src={`${imageUrl}/${product.id}`} alt="" />
+                                                    <img className="object-cover w-full h-full" src={`${imageUrl}/${product.image}`} alt="" />
                                                 </div>
                                                 <p className="text-xl">{product.productName}</p>
                                             </div>

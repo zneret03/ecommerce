@@ -44,7 +44,7 @@ export default function DisplayProducts({ className, set, filter }) {
         <>
             <div className={`${className} gap-2 md:gap-3`}>
                 {products.map((product) => {
-                    return <ProductCard props={product} imageUrl={`${img_url}/${product.id}`} key={product.id} />
+                    return <ProductCard props={product} imageUrl={`${img_url}/${product.image}`} key={product.id} />
                 })}
             </div>
             {products.length === 0 && isLoaded?

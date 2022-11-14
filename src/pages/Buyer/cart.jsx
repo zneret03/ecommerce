@@ -85,7 +85,7 @@ export default function Cart() {
                             <div className="flex flex-row border-t-2 py-4 w-full justify-between" key={product.id}>
                                 <div className="flex flex-row gap-x-4 ">
                                     <div className="bg-gray-200 md:w-52 md:h-52 hidden md:block">
-                                        <img className="object-cover w-full h-full" src={`${imageUrl}/${product.id}`} alt="" />
+                                        <img className="object-cover w-full h-full" src={`${imageUrl}/${product.image}`} alt="" />
                                     </div>
                                     <div className="flex flex-col justify-between">
                                         <div>

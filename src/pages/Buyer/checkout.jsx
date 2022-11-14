@@ -151,7 +151,7 @@ export default function Checkout() {
                                                 <p className="text-sm text-gray-600">{product.shop}</p>
                                                 <div className="flex flex-row gap-x-5 items-center">
                                                     <div className="bg-gray-200 w-16 h-16 hidden md:block">
-                                                        <img className="object-cover w-full h-full" src={`${imageUrl}/${product.id}`} alt="" />
+                                                        <img className="object-cover w-full h-full" src={`${imageUrl}/${product.image}`} alt="" />
                                                     </div>
                                                     <p className="text-xl">{product.productName}</p>
                                                 </div>

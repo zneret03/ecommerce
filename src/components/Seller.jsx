@@ -27,7 +27,7 @@ export default function Seller({ shopID }) {
         <div className="flex flex-col md:flex-row gap-y-2 px-2 lg:px-5 bg-white py-5">
             <div className="md:w-2/4 flex flex-row w-full">
                 <div className="w-24 h-24 rounded-full mr-5 overflow-hidden border">
-                    <img className="object-cover w-full h-full" src={`${imageUrl}/${shop.id}`} alt="" />
+                    <img className="object-cover w-full h-full" src={`${imageUrl}/${shop.image}`} alt="" />
                 </div>
                 <div className="flex flex-col gap-y-1 justify-center">
                     <div className="text-2xl text-gray-700 whitespace-normal">{shop.shopName}</div>
