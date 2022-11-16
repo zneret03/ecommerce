@@ -19,7 +19,8 @@ import {
   ShopPage,
   Checkout,
   MyPurchase,
-  MyAccount
+  MyAccount,
+  Forecast
 } from "pages"
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 
         {/**Admin pages */}
         <Route exact path="/admin" element={<SellerDashboard />} />
+        <Route exact path="/admin/forecast" element={<Forecast />} />
         <Route exact path="/admin/category" element={<Category />} />
         <Route exact path="/admin/orders" element={<Orders />} />
         <Route exact path="/admin/products" element={<AdminProducts />} />
