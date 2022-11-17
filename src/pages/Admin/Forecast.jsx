@@ -4,7 +4,7 @@ import { axiosRequest } from "api"
 
 export default function Forecast() {
   const url = "/api/v1/admin/forecast";
-  const [data, setData] = useState([])
+  const [[sales, arima] , setData] = useState([])
 
   useEffect(() => {
     const getForecast = async () => {
@@ -33,7 +33,10 @@ export default function Forecast() {
       size='md:h-screen'
     >
       <div className="w-full h-screen">
-        <ForecastChart data={data} y1={'sales'} y2={'predicted'} xAxis={'date'} />
+        <p>USING LINEAR REGRESSION</p>
+        <ForecastChart data={sales} y1={'sales'} y2={'predicted'} xAxis={'date'} />
+        <p>USING MOVING AVERAGE</p>
+        <ForecastChart data={arima} y1={'sales'} y2={'predicted'} xAxis={'date'} />
       </div>
 
     </PrivateLayout>
