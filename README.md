@@ -1,7 +1,7 @@
 # FRONTEND for Shoperty
 
 ## Requirements
-1. Node [Download](https://nodejs.org/en/download/)
+1. Download [Node](https://nodejs.org/en/download/)
 
 ## Instruction
 1. Clone this repository:
