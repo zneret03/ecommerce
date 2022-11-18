@@ -94,7 +94,7 @@ export default function Shoppage() {
             <section className="bg-gray-200">
                 <div className="w-full md:p-2 p-1 drop-shadow">
                     <div className="bg-white">
-                        <div className="flex flex-col md:flex-row w-screen md:p-5 p-3">
+                        <div className="flex flex-col md:flex-row w-full p-3">
                             <div className="md:w-60 w-48 overflow-hidden border mr-10">
                                 <img className="object-cover w-full h-full" src={`${imageUrl}/${shop.image}`} alt="" />
                             </div>

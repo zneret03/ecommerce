@@ -15,6 +15,7 @@ const sidebarList = [
     title: "Forecasting",
     icon: <Activity size={iconSize} />,
     path: "/admin/forecast",
+    shop: true
   },
   {
     id:3,

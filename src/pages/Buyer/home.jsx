@@ -1,5 +1,5 @@
 import React from "react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { axiosRequest } from "api"
 import { HomeNavbar, Navbar, Banner, FeatureProduct, Footer } from 'components'
@@ -7,6 +7,7 @@ import { HomeNavbar, Navbar, Banner, FeatureProduct, Footer } from 'components'
 export default function Home() {
   const url = '/api/v1/user'
   const navigate = useNavigate();
+  const [user, setUser] = useState(false)
 
   useEffect(() => {
     const getUser = async () => {
@@ -19,6 +20,7 @@ export default function Home() {
           if (userData.userType === 'Seller') {
             navigate('/admin')
           }
+          setUser(userData)
         }
 
       } catch (e) {
@@ -37,15 +39,21 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
-      <HomeNavbar />
-      <Banner />
-      <div className="flex flex-col gap-y-5 mb-5">
-        <FeatureProduct filter={'recommended'} name={'Recommended Products'} />
-        <FeatureProduct filter={'latest'} name={'Latest Products'} />
-        <FeatureProduct filter={'shops'} name={'Browse Local Shops'} />
-      </div>
-      <Footer />
+      {user ?
+        <>
+          <Navbar />
+          <HomeNavbar />
+          <Banner />
+          <div className="flex flex-col gap-y-5 mb-5">
+            <FeatureProduct filter={'recommended'} name={'Recommended Products'} />
+            <FeatureProduct filter={'latest'} name={'Latest Products'} />
+            <FeatureProduct filter={'shops'} name={'Browse Local Shops'} />
+          </div>
+          <Footer />
+        </>
+        : null
+      }
+
     </>
   )
 }

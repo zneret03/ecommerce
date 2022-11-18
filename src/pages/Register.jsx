@@ -2,6 +2,7 @@ import { useState } from "react"
 import { PublicLayout } from "components"
 import { axiosRequest } from "api"
 import swal from "sweetalert2"
+import { useNavigate } from "react-router-dom"
 
 // components
 import { InputField, SelectDropdown, Back } from "components"
@@ -15,13 +16,17 @@ const initialState = {
   gender: "",
   userType: "",
   password: "",
+  confirm_password: ""
 }
 
 export default function Register() {
   const [
-    { firstName, lastName, email, address, age, gender, userType, password },
+    { firstName, lastName, email, address, age, gender, userType, password, confirm_password },
     setState,
   ] = useState(initialState)
+
+  const navigate = useNavigate();
+  const [error, setError] = useState()
 
   const onChange = (event) => {
     const { name, value } = event.target
@@ -30,55 +35,75 @@ export default function Register() {
 
   const onSubmit = async (event) => {
     event.preventDefault()
-    try {
-      const datas = {
-        firstName,
-        lastName,
-        email,
-        address,
-        age,
-        gender,
-        userType,
-        password,
-      }
 
-      // add api here
-      const response = await axiosRequest.post("/api/v1/signup", datas)
+    if (password !== confirm_password) {
+      setError('Password does not match!')
+    }
 
-      const { status } = response
-
-      if (status === 201) {
-        swal.fire({
-          title: "Successfully Signup",
-          text: "click ok to continue",
-          icon: "success",
-        })
-      }
-    } catch (error) {
-      const { status } = error.response
-
-      if (status === 500) {
-        swal.fire({
-          title: "Oops!! Error 500",
-          text: "server not found",
-          icon: "warning",
-        })
-      }
-
-      if (status === 404) {
-        swal.fire({
-          title: "Oops!!",
-          text: "something went wrong, please try again :(",
-          icon: "warning",
-        })
-      }
-
-      if (status === 409) {
-        swal.fire({
-          title: "Error",
-          text: "Email already taken!",
-          icon: "warning",
-        })
+    if(error) {
+      swal.fire({
+        title: error,
+        icon: "error",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          return
+        }
+      })
+    } 
+    else {
+      try {
+        const datas = {
+          firstName,
+          lastName,
+          email,
+          address,
+          age,
+          gender,
+          userType,
+          password,
+        }
+  
+        const response = await axiosRequest.post("/api/v1/signup", datas)
+  
+        const { status } = response
+  
+        if (status === 201) {
+          swal.fire({
+            title: "Successfully Signup",
+            text: "click ok to continue",
+            icon: "success",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate('/')
+            }
+          })
+        }
+      } catch (error) {
+        const { status } = error.response
+  
+        if (status === 500) {
+          swal.fire({
+            title: "Oops!! Error 500",
+            text: "server not found",
+            icon: "warning",
+          })
+        }
+  
+        if (status === 404) {
+          swal.fire({
+            title: "Oops!!",
+            text: "something went wrong, please try again :(",
+            icon: "warning",
+          })
+        }
+  
+        if (status === 409) {
+          swal.fire({
+            title: "Error",
+            text: "Email already taken!",
+            icon: "warning",
+          })
+        }
       }
     }
   }
@@ -125,7 +150,7 @@ export default function Register() {
             name="email"
             value={email}
             onChange={(event) => onChange(event)}
-            placeholder="email"
+            placeholder="Email Address"
             required
           />
         </div>
@@ -140,6 +165,7 @@ export default function Register() {
             required
           />
           <InputField
+            id="quantity"
             type="number"
             name="age"
             value={age}
@@ -152,7 +178,7 @@ export default function Register() {
         <div className="mb-6 grid grid-cols-2 gap-2">
           <SelectDropdown name="gender" onChange={(event) => onChange(event)}>
             <option selected disabled>
-              Choose a gender
+              Gender
             </option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -160,7 +186,7 @@ export default function Register() {
 
           <SelectDropdown name="userType" onChange={(event) => onChange(event)}>
             <option disabled selected>
-              Choose a user type
+              User Type
             </option>
             <option value="Seller">Seller</option>
             <option value="Buyer">Buyer</option>
@@ -175,6 +201,18 @@ export default function Register() {
             onChange={(event) => onChange(event)}
             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary-600 focus:outline-none"
             placeholder="Password"
+            required
+          />
+        </div>
+
+        <div className="mb-6">
+          <InputField
+            type="password"
+            name="confirm_password"
+            value={confirm_password}
+            onChange={(event) => onChange(event)}
+            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary-600 focus:outline-none"
+            placeholder="Confirm Password"
             required
           />
         </div>
