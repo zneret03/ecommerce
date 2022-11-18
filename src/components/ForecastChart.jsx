@@ -16,7 +16,7 @@ export default function ForecastChart({ data, y1, y2, xAxis }) {
           {payload.map((i, index) => {
             if (index === 0) {
               return (
-                <div className="bg-orange-500/[0.9] rounded p-2 flex flex-col items-center">
+                <div className="bg-orange-500/[0.9] rounded p-2 flex flex-col items-center" key={i.value}>
                   <p className="label text-white">₱ {i.value.toLocaleString()}</p>
                   <p className="text-white/[.9] text-sm">{label}</p>
                 </div>

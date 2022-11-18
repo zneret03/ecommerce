@@ -15,6 +15,7 @@ export default function Forecast() {
 
         if (status === 200) {
           setData(data.data)
+          console.log("RMSE: ", data.message)
         }
 
       } catch (error) {
