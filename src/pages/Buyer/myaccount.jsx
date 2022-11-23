@@ -9,6 +9,7 @@ const initialState = {
     lastName: "",
     email: "",
     address: "",
+    number: "",
     age: "",
     gender: "",
     userType: "",
@@ -16,7 +17,7 @@ const initialState = {
 
 export default function MyAccount() {
     const [
-        { firstName, lastName, email, address, age, gender },
+        { firstName, lastName, email, address, age, gender, number },
         setState,
     ] = useState(initialState)
 
@@ -100,6 +101,21 @@ export default function MyAccount() {
                                 value={email}
                                 onChange={(event) => onChange(event)}
                                 placeholder="email"
+                                required
+                                readOnly
+                            />
+                        </div >
+                    </div>
+
+                    <div className="mb-6">
+                        <div>
+                            <label className="text-gray-600">Number</label>
+                            <InputField
+                                type="number"
+                                name="number"
+                                value={number}
+                                onChange={(event) => onChange(event)}
+                                placeholder="number"
                                 required
                                 readOnly
                             />

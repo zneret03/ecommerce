@@ -11,6 +11,7 @@ const initialState = {
   firstName: "",
   lastName: "",
   email: "",
+  number: "",
   address: "",
   age: "",
   gender: "",
@@ -21,7 +22,7 @@ const initialState = {
 
 export default function Register() {
   const [
-    { firstName, lastName, email, address, age, gender, userType, password, confirm_password },
+    { firstName, lastName, email, number, address, age, gender, userType, password, confirm_password },
     setState,
   ] = useState(initialState)
 
@@ -40,7 +41,7 @@ export default function Register() {
       setError('Password does not match!')
     }
 
-    if(error) {
+    if (error) {
       swal.fire({
         title: error,
         icon: "error",
@@ -49,24 +50,25 @@ export default function Register() {
           return
         }
       })
-    } 
+    }
     else {
       try {
         const datas = {
           firstName,
           lastName,
           email,
+          number,
           address,
           age,
           gender,
           userType,
           password,
         }
-  
+
         const response = await axiosRequest.post("/api/v1/signup", datas)
-  
+
         const { status } = response
-  
+
         if (status === 201) {
           swal.fire({
             title: "Successfully Signup",
@@ -80,7 +82,7 @@ export default function Register() {
         }
       } catch (error) {
         const { status } = error.response
-  
+
         if (status === 500) {
           swal.fire({
             title: "Oops!! Error 500",
@@ -88,7 +90,7 @@ export default function Register() {
             icon: "warning",
           })
         }
-  
+
         if (status === 404) {
           swal.fire({
             title: "Oops!!",
@@ -96,7 +98,7 @@ export default function Register() {
             icon: "warning",
           })
         }
-  
+
         if (status === 409) {
           swal.fire({
             title: "Error",
@@ -155,13 +157,25 @@ export default function Register() {
           />
         </div>
 
-        <div class="mb-6 grid grid-cols-2 gap-2">
+        <div className="mb-6">
           <InputField
             type="text"
             name="address"
             value={address}
             onChange={(event) => onChange(event)}
             placeholder="Address"
+            required
+          />
+        </div>
+
+        <div class="mb-6 grid grid-cols-2 gap-2">
+          <InputField
+            id="quantity"
+            type="number"
+            name="number"
+            value={number}
+            onChange={(event) => onChange(event)}
+            placeholder="Number"
             required
           />
           <InputField

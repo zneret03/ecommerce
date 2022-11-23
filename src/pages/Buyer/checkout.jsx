@@ -7,12 +7,13 @@ import { useNavigate } from "react-router-dom"
 
 const initialState = {
     fullname: "",
-    phonenumber: "",
+    number: "",
     address: "",
 }
 
 export default function Checkout() {
     const cart_url = "/api/v1/user/cart"
+    const user_url = '/api/v1/user/delivery'
     const checkout_url = '/api/v1/checkout'
     const imageUrl = "/api/v1/images"
     const [products, setProducts] = useState([])
@@ -24,7 +25,7 @@ export default function Checkout() {
 
     const navigate = useNavigate();
 
-    const [{ fullname, phonenumber, address }, setState] = useState(initialState)
+    const [{ fullname, number, address }, setState] = useState(initialState)
 
     const onChange = (event) => {
         const { name, value } = event.target
@@ -60,12 +61,27 @@ export default function Checkout() {
                 }
             }
         }
+
+        const getUser = async() => {
+            try {
+                const response = await axiosRequest.get(user_url)
+                const { status, data } = response
+
+                if (status === 200) {
+                    setState(data.data)
+                }
+            } catch (e) {
+
+            }
+        }
+
+        getUser()
         getCart()
     }, [])
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        const datas = {fullname, phonenumber, address}
+        const datas = {fullname, number, address}
         const response = await axiosRequest.post(checkout_url, datas)
         const { status } = response
         if (status === 201) {
@@ -107,9 +123,10 @@ export default function Checkout() {
                                 <div className="flex flex-row justify-between items-center">
                                     <p className="w-32">Number:</p>
                                     <InputField
+                                        id = "quantity"
                                         type="number"
-                                        name="phonenumber"
-                                        value={phonenumber}
+                                        name="number"
+                                        value={number}
                                         onChange={(event) => onChange(event)}
                                         required
                                     />
