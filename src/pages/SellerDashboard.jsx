@@ -132,7 +132,7 @@ export default function SellerDashboard() {
                 <p className="text-sm text-gray-600">Product Name</p>
               </div>
               <div className="flex justify-end items-center">
-                <p className="text-sm text-gray-600">Orders</p>
+                <p className="text-sm text-gray-600">Sold</p>
               </div>
             </div>
 
