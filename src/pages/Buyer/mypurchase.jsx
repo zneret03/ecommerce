@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar, Footer } from 'components'
 import { axiosRequest } from "api"
-import { Frown, MapPin } from "react-feather"
+import { Frown, MapPin, ArrowUp, ArrowDown } from "react-feather"
 import swal from "sweetalert2"
 
+const initialState = {
+    price: false,
+    quantity: false,
+    total: false,
+    dateCreated: false,
+    status: false
+}
 export default function MyPurchase() {
     const order_url = '/api/v1/mypurchase'
     const imageUrl = "/api/v1/images"
     const [products, setProducts] = useState([])
     const [isLoaded, setLoaded] = useState(false)
     const status_url = "/api/v1/admin/order/status"
+    const [states, setState] = useState(initialState)
+    const [button, setButton] = useState([])
 
     useEffect(() => {
         const getCart = async () => {
@@ -56,6 +65,54 @@ export default function MyPurchase() {
         }
     }
 
+    const sort = (att) => {
+        const sorted = [...products]
+
+        setButton(att)
+
+        if (!states[att]) {
+            sorted.sort((a, b) => (a[att] - b[att]))
+        }
+        else {
+            sorted.sort((a, b) => (b[att] - a[att]))
+        }
+
+        setProducts(sorted)
+        setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
+    }
+
+    const sortDate = () => {
+        const sorted = [...products]
+        const att = 'dateCreated'
+        setButton(att)
+
+        if (!states[att]) {
+            sorted.sort((a, b) => (new Date(a[att]) - new Date(b[att])))
+        }
+        else {
+            sorted.sort((a, b) => (new Date(b[att]) - new Date(a[att])))
+        }
+
+        setProducts(sorted)
+        setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
+    }
+
+    const sortStatus = () => {
+        const sorted = [...products]
+        const att = 'status'
+        setButton(att)
+
+        if (!states[att]) {
+            sorted.sort((a, b) => (new Date(a[att].id) - new Date(b[att].id)))
+        }
+        else {
+            sorted.sort((a, b) => (new Date(b[att].id) - new Date(a[att].id)))
+        }
+
+        setProducts(sorted)
+        setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
+    }
+
     return (
         <>
             <Navbar />
@@ -68,19 +125,44 @@ export default function MyPurchase() {
                                 <p className="text-base md:text-xl font-medium">Products Ordered</p>
                             </div>
                             <div className="hidden md:flex items-center justify-center">
-                                <p>Price</p>
+                                <button onClick={() => sort('price')} className="flex flex-row items-center gap-x-2">Price
+                                    {button === 'price' ?
+                                        states.price ? <ArrowDown className="text-gray-700 w-4 h-4" /> : <ArrowUp className="text-gray-700 w-4 h-4" /> :
+                                        null
+                                    }
+                                </button>
                             </div>
                             <div className="hidden md:flex items-center justify-center">
-                                <p>Quantity</p>
+                                <button onClick={() => sort('quantity')} className="flex flex-row items-center gap-x-2">Quantity
+                                    {button === 'quantity' ?
+                                        states.quantity ? <ArrowDown className="text-gray-700 w-4 h-4" /> : <ArrowUp className="text-gray-700 w-4 h-4" /> :
+                                        null
+                                    }
+                                </button>
                             </div>
                             <div className="hidden md:flex items-center justify-center">
-                                <p>Total</p>
+                                <button onClick={() => sort('total')} className="flex flex-row items-center gap-x-2">Total
+                                    {button === 'total' ?
+                                        states.total ? <ArrowDown className="text-gray-700 w-4 h-4" /> : <ArrowUp className="text-gray-700 w-4 h-4" /> :
+                                        null
+                                    }
+                                </button>
                             </div>
                             <div className="hidden md:flex items-center justify-center">
-                                <p>Date</p>
+                                <button onClick={() => sortDate()} className="flex flex-row items-center gap-x-2">Date
+                                    {button === 'dateCreated' ?
+                                        states.dateCreated ? <ArrowDown className="text-gray-700 w-4 h-4" /> : <ArrowUp className="text-gray-700 w-4 h-4" /> :
+                                        null
+                                    }
+                                </button>
                             </div>
                             <div className="hidden md:flex items-center justify-end">
-                                <p>Status</p>
+                                <button onClick={() => sortStatus()} className="flex flex-row items-center gap-x-2">Status
+                                    {button === 'status' ?
+                                        states.status ? <ArrowDown className="text-gray-700 w-4 h-4" /> : <ArrowUp className="text-gray-700 w-4 h-4" /> :
+                                        null
+                                    }
+                                </button>
                             </div>
                         </div>
 
@@ -92,9 +174,9 @@ export default function MyPurchase() {
                                             <div className="flex flex-row justify-between">
                                                 <p className="text-sm text-gray-600">{product.shop}</p>
                                                 <div className="flex md:hidden items-center  justify-end text-primary ">
-                                                    {product.status === 'COMPLETE' ?
-                                                        <p className="text-green-600">{product.status}</p>
-                                                        : <p>{product.status}</p>
+                                                    {product.status.name === 'COMPLETE' ?
+                                                        <p className="text-green-600">{product.status.name}</p>
+                                                        : <p>{product.status.name}</p>
                                                     }
                                                 </div>
                                             </div>
@@ -116,16 +198,16 @@ export default function MyPurchase() {
                                         </div>
                                         <div className="md:flex items-center  grid grid-cols-4 md:justify-center gap-x-2">
                                             <p className="md:hidden block">Total: </p>
-                                            <p>₱ {(product.quantity * product.price).toLocaleString()}</p>
+                                            <p>₱ {product.total.toLocaleString()}</p>
                                         </div>
                                         <div className="md:flex items-center grid grid-cols-4 md:justify-center  ">
                                             <p className="md:hidden block">Date: </p>
                                             {getDate(product.dateCreated)}
                                         </div>
                                         <div className="hidden md:flex items-center  font-medium md:justify-end text-primary ">
-                                            {product.status === 'COMPLETE' ?
-                                                <p className="text-green-600">{product.status}</p>
-                                                : <p>{product.status}</p>
+                                            {product.status.name === 'COMPLETE' ?
+                                                <p className="text-green-600">{product.status.name}</p>
+                                                : <p>{product.status.name}</p>
                                             }
                                         </div>
                                     </div>
