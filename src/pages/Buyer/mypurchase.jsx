@@ -128,7 +128,7 @@ export default function MyPurchase() {
         <>
             <Navbar />
             <div className="flex flex-col w-full text-gray-800">
-                <div className="font-bold text-3xl bg-white px-10 py-5">My Purchase ({products.length})</div>
+                <div className="font-bold text-3xl bg-white px-10 py-5">My Purchase ({products? products.length : 0})</div>
                 <div className="w-full py-2 px-5 bg-gray-100 flex flex-col gap-y-3 ">
                     <div className="flex flex-col gap-y-2 mb-10">
                         <div className="md:grid md:grid-cols-8 bg-white px-5 md:px-10 py-3">

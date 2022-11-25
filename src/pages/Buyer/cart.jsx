@@ -79,7 +79,7 @@ export default function Cart() {
             <Navbar refresh={refresh}/>
             <div className="flex flex-col md:flex-row w-screen bg-white text-gray-800">
                 <div className="md:w-2/3 p-8">
-                    <p className="font-bold text-3xl mb-5">Cart</p>
+                    <p className="font-bold text-3xl mb-5">Cart ({products? products.length : 0})</p>
                     {isLoaded ? products.map((product) => {
                         return (
                             <div className="flex flex-row border-t-2 py-4 w-full justify-between" key={product.id}>
