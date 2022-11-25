@@ -1,6 +1,6 @@
 import React from "react"
-import {Search} from "components"
-import { useSearchParams } from "react-router-dom"
+import { Search } from "components"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
 const navItems = [
     {
@@ -30,6 +30,11 @@ export default function HomeNavbar() {
     const keyword = searchParams.get('keyword')
     const filter = searchParams.get('filter')
     const url = keyword ? `/products?keyword=${keyword}&` : `/products?`
+    const navigate = useNavigate()
+
+    const moveto = (path) => {
+        navigate(path)
+    }
 
     return (
         <nav className="md:static bg-white md:px-5 w-full border-b-4 border-primary">
@@ -38,15 +43,13 @@ export default function HomeNavbar() {
                     {navItems.map(type => {
                         return (
                             <li key={type.id}>
-                                <a href={`${url}filter=${type.name}&page=1`}>
-                                    <button className={`${filter === type.name ?'bg-primary text-white': "text-gray-800"}
+                                <button onClick={() => moveto(`${url}filter=${type.name}&page=1`)} className={`${filter === type.name ? 'bg-primary text-white' : "text-gray-800"}
                                      lg:px-8 md:text-xl text-base font-medium p-5 hover:bg-primary hover:text-white`}>{type.title}</button>
-                                </a>
                             </li>
                         )
                     })}
                 </ul>
-                <Search className="md:flex sm:items-center w-100 hidden" hidden={false}/>
+                <Search className="md:flex sm:items-center w-100 hidden" hidden={false} />
             </div>
         </nav>
     )
