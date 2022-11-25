@@ -38,6 +38,12 @@ export default function Products() {
                 setPageNumber([
                     1, "...", currentPage - 2, currentPage - 1, currentPage
                 ])
+
+                if (pages === 4) {
+                    setPageNumber([
+                        1, currentPage - 2, currentPage - 1, currentPage
+                    ])
+                }
             }
             else {
                 setPageNumber([
@@ -53,6 +59,12 @@ export default function Products() {
             }
         }
 
+        let params
+        if (filter) params = {'filter': filter, 'page': currentPage}
+        if (keyword) params = {'keyword': keyword, 'page': currentPage}
+        if (filter && keyword) params = {'filter': filter, 'keyword': keyword, 'page': currentPage}
+
+        setSearchParams(params)
     }, [currentPage, filter, keyword, setSearchParams, length])
 
     const arrow = (dir) => {
