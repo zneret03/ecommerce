@@ -84,10 +84,9 @@ export default function MyPurchase() {
         else {
             sorted.sort((a, b) => (b[att] - a[att]))
         }
-
         setProducts(sorted)
         setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
-        setPaginate(products.slice(0, paginate.length))
+        setPaginate(sorted.slice(0, paginate.length))
     }
 
     const sortDate = () => {
@@ -101,10 +100,9 @@ export default function MyPurchase() {
         else {
             sorted.sort((a, b) => (new Date(b[att]) - new Date(a[att])))
         }
-
         setProducts(sorted)
         setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
-        setPaginate(products.slice(0, paginate.length))
+        setPaginate(sorted.slice(0, paginate.length))
     }
 
     const sortStatus = () => {
@@ -118,10 +116,9 @@ export default function MyPurchase() {
         else {
             sorted.sort((a, b) => (new Date(b[att].id) - new Date(a[att].id)))
         }
-
         setProducts(sorted)
         setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
-        setPaginate(products.slice(0, paginate.length))
+        setPaginate(sorted.slice(0, paginate.length))
     }
 
     return (
