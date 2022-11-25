@@ -17,20 +17,11 @@ export default function Products() {
     const click = (page) => {
         if (page === "...") return
         setCurrent(page)
-
     }
 
     const numberPerPage = 12
 
     useEffect(() => {
-        if (filter) {
-            setSearchParams({ 'filter': filter, 'page': currentPage })
-        }
-
-        if (keyword) {
-            setSearchParams({ 'keyword': keyword, 'page': currentPage })
-        }
-
         const pages = Math.ceil(length / numberPerPage)
         if (currentPage > 3) {
             if ((pages - currentPage) === 2) {
@@ -81,11 +72,11 @@ export default function Products() {
     return (
         <>
             <Navbar />
-            <HomeNavbar filter={filter} />
+            <HomeNavbar />
             <section className="bg-gray-200">
-                <div className="w-full flex justify-center">
-                    {filter ? <p className="text-2xl text-gray-700 p-5">{filter.toLocaleUpperCase()}</p> : null}
-                    {keyword ? <p className="text-2xl text-gray-700 p-5">Results for {keyword}</p> : null}
+                <div className="w-full flex justify-center gap-x-5">
+                    {keyword ? <p className="text-2xl text-gray-700 py-5">Results for {keyword}</p> : null}
+                    {filter ? <p className="text-2xl text-gray-700 py-5">{filter.toLocaleUpperCase()}</p> : null}
                 </div>
                 <div className="md:py-4 flex justify-center">
                 {filter === 'shops'

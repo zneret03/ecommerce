@@ -12,7 +12,7 @@ export default function DisplayProducts({ className, set, filter }) {
     const query = useLocation()
     const [products, setProducts] = useState([])
     const [searchParams] = useSearchParams()
-    let url = (!filter) ? `${product_url}?${searchParams}` : `${product_url}?filter=${filter}&page=1`
+    let url = `${product_url}?${searchParams}`
     const [isLoaded, setLoaded] = useState(false)
 
     if (filter === 'similar') {
