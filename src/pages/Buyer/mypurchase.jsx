@@ -11,6 +11,8 @@ const initialState = {
     dateCreated: false,
     status: false
 }
+const maxPerPaginate = 7
+
 export default function MyPurchase() {
     const order_url = '/api/v1/mypurchase'
     const imageUrl = "/api/v1/images"
@@ -18,21 +20,27 @@ export default function MyPurchase() {
     const [isLoaded, setLoaded] = useState(false)
     const status_url = "/api/v1/admin/order/status"
     const [states, setState] = useState(initialState)
-    const [button, setButton] = useState([])
+    const [button, setButton] = useState('dateCreated')
+    const [paginate, setPaginate] = useState([])
 
     useEffect(() => {
-        const getCart = async () => {
+        const getPurchases = async () => {
             const response = await axiosRequest.get(order_url)
             const { status, data } = response
             if (status === 200) {
                 const prod = data.data
 
                 setProducts(prod)
+                if (prod) setPaginate(prod.slice(0, maxPerPaginate))
                 setLoaded(true)
             }
         }
-        getCart()
+        getPurchases()
     }, [])
+
+    const seeMore = () => {
+        setPaginate(products.slice(0, paginate.length + maxPerPaginate))
+    }
 
     const getDate = (date) => {
         const options = { month: 'numeric', day: 'numeric', year: "numeric" };
@@ -79,6 +87,7 @@ export default function MyPurchase() {
 
         setProducts(sorted)
         setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
+        setPaginate(products.slice(0, paginate.length))
     }
 
     const sortDate = () => {
@@ -95,6 +104,7 @@ export default function MyPurchase() {
 
         setProducts(sorted)
         setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
+        setPaginate(products.slice(0, paginate.length))
     }
 
     const sortStatus = () => {
@@ -111,13 +121,14 @@ export default function MyPurchase() {
 
         setProducts(sorted)
         setState((prevState) => ({ ...prevState, [att]: !prevState[att] }))
+        setPaginate(products.slice(0, paginate.length))
     }
 
     return (
         <>
             <Navbar />
             <div className="flex flex-col w-full text-gray-800">
-                <div className="font-bold text-3xl bg-white px-10 py-5">My Purchase</div>
+                <div className="font-bold text-3xl bg-white px-10 py-5">My Purchase ({products.length})</div>
                 <div className="w-full py-2 px-5 bg-gray-100 flex flex-col gap-y-3 ">
                     <div className="flex flex-col gap-y-2 mb-10">
                         <div className="md:grid md:grid-cols-8 bg-white px-5 md:px-10 py-3">
@@ -166,7 +177,7 @@ export default function MyPurchase() {
                             </div>
                         </div>
 
-                        {isLoaded ? products.map((product) => {
+                        {isLoaded ? paginate.map((product) => {
                             return (
                                 <div className="py-3 px-5 md:px-10 bg-white w-full flex flex-col gap-y-5" key={product.orderID}>
                                     <div className="md:grid md:grid-cols-8 bg-white flex flex-col gap-y-2">
@@ -230,6 +241,13 @@ export default function MyPurchase() {
                                 </div>
                             )
                         }) : null}
+
+                        {products.length > maxPerPaginate && products.length !== paginate.length?
+                            <div className="flex flex-col justify-center items-center mt-5">
+                                <button onClick={() => seeMore()} className="w-96 py-2 bg-white rounded shadow text-gray-500 hover:bg-white/50">See More</button>
+                            </div>
+                            : null
+                        }
 
                         {products.length === 0 && isLoaded ?
                             <div className="flex flex-col justify-center items-center p-10 gap-y-3 text-gray-800">
