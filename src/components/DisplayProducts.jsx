@@ -15,11 +15,14 @@ export default function DisplayProducts({ className, set, filter }) {
     let url = `${product_url}?${searchParams}`
     const [isLoaded, setLoaded] = useState(false)
 
-    if (filter === 'similar') {
-        const id = query.pathname.substring(query.pathname.lastIndexOf('/') + 1)
-        url = `${product_url}?filter=${filter}&id=${id}&page=1`
-    }
+    if (filter) {
+        url = `${product_url}?filter=${filter}&page=1`
 
+        if (filter === 'similar') {
+            const id = query.pathname.substring(query.pathname.lastIndexOf('/') + 1)
+            url = `${product_url}?filter=${filter}&id=${id}&page=1`
+        }
+    }
     const setLength = (length) => {
         set(length)
     }
@@ -47,9 +50,9 @@ export default function DisplayProducts({ className, set, filter }) {
                     return <ProductCard props={product} imageUrl={`${img_url}/${product.image}`} key={product.id} />
                 })}
             </div>
-            {products.length === 0 && isLoaded?
+            {products.length === 0 && isLoaded ?
                 <div className="flex flex-col justify-center items-center p-10 gap-y-3 text-gray-800">
-                    <Frown className="w-20 h-20"/>
+                    <Frown className="w-20 h-20" />
                     <p className="font-medium text-xl">No product found!</p>
                 </div>
                 : ""}
