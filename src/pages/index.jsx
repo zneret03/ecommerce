@@ -13,6 +13,7 @@ export { default as AddProducts } from "./Admin/AddProducts"
 export { default as UpdateProducts } from "./Admin/UpdateProducts"
 export { default as Shop } from "./Admin/Shop"
 export { default as Forecast } from "./Admin/Forecast"
+export { default as Report } from "./Admin/Report"
 
 //Buyer Pages
 export { default as Home} from "./Buyer/home"

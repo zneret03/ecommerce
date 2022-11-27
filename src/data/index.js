@@ -1,4 +1,4 @@
-import { Home, ShoppingBag ,File, Archive, ShoppingCart, Box, LogOut, Activity } from "react-feather"
+import { Home, ShoppingBag ,File, Archive, ShoppingCart, Box, LogOut, Activity, FileText } from "react-feather"
 
 const iconSize = 18
 
@@ -39,20 +39,27 @@ const sidebarList = [
   },
   {
     id: 6,
-    title: "Orders",
-    icon: <ShoppingCart size={iconSize} />,
-    path: "/admin/orders",
-    shop: true
-  },
-  {
-    id: 7,
     title: "Products",
     icon: <Box size={iconSize} />,
     path: "/admin/products",
     shop: true
   },
   {
+    id: 7,
+    title: "Orders",
+    icon: <ShoppingCart size={iconSize} />,
+    path: "/admin/orders",
+    shop: true
+  },
+  {
     id: 8,
+    title: "Inventory Report",
+    icon: <FileText size={iconSize} />,
+    path: "/admin/report",
+    shop: true
+  },
+  {
+    id: 9,
     title: "Logout",
     icon: <LogOut size={iconSize} />,
     path: "/logout"

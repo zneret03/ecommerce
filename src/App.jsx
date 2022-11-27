@@ -20,7 +20,8 @@ import {
   Checkout,
   MyPurchase,
   MyAccount,
-  Forecast
+  Forecast,
+  Report
 } from "pages"
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="/admin/addProducts/" element={<AddProducts />} />
         <Route exact path="/admin/updateProducts/:id" element={<UpdateProducts />} />
         <Route exact path="/admin/shop" element={<Shop />} />
+        <Route exact path="/admin/report" element={<Report />} />
 
         <Route exact path="/product/:id" element={<ProductPage />} />
         <Route exact path="/products" element={<Products />} />

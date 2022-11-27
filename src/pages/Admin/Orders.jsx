@@ -18,24 +18,24 @@ export default function Orders() {
       renderCell: (params) => {
         return (
           <div>
-            {params.row.status === "COMPLETE" ?
-              <p className="text-green-600">{params.row.status}</p>
+            {params.row.status.name === "COMPLETE" ?
+              <p className="text-green-600">{params.row.status.name}</p>
               : ""
             }
-            {params.row.status === "CANCELLED" ?
-              <p className="text-red-600">{params.row.status}</p>
+            {params.row.status.name === "CANCELLED" ?
+              <p className="text-red-600">{params.row.status.name}</p>
               : ""
             }
-            {params.row.status === "PREPARING"?
-              <p className="text-amber-600">{params.row.status}</p>
+            {params.row.status.name === "PREPARING"?
+              <p className="text-amber-600">{params.row.status.name}</p>
               : ""
             }
-            {params.row.status === "PENDING"?
-              <p className="text-yellow-500">{params.row.status}</p>
+            {params.row.status.name === "PENDING"?
+              <p className="text-yellow-500">{params.row.status.name}</p>
               : ""
             }
-            {params.row.status === "SHIPPED"?
-              <p className="text-orange-600">{params.row.status}</p>
+            {params.row.status.name === "SHIPPED"?
+              <p className="text-orange-600">{params.row.status.name}</p>
               : ""
             }
 
@@ -127,16 +127,16 @@ export default function Orders() {
       renderCell: (params) => {
         return (
           <div className="flex flex-row gap-x-2">
-            {(params.row.status === "PENDING") ?
-              <Button onClick={() => { updateStatus(params.row, "PREPARING") }} variant="contained">Accept</Button>
+            {(params.row.status.name === "PENDING") ?
+              <Button onClick={() => { updateStatus(params.row, "PREPARING", 2) }} variant="contained">Accept</Button>
               : ""
             }
-            {(params.row.status === "PREPARING") ?
-              <Button onClick={() => { updateStatus(params.row, "SHIPPED") }} variant="contained">SHIP</Button>
+            {(params.row.status.name === "PREPARING") ?
+              <Button onClick={() => { updateStatus(params.row, "SHIPPED", 3) }} variant="contained">SHIP</Button>
               : ""
             }
-            {(params.row.status !== "CANCELLED" && params.row.status !== "COMPLETE" && params.row.status !== "SHIPPED") ?
-              <Button onClick={() => { updateStatus(params.row, "CANCELLED") }} variant="contained" color="error">Cancel</Button>
+            {(params.row.status.name !== "CANCELLED" && params.row.status.name !== "COMPLETE" && params.row.status.name !== "SHIPPED") ?
+              <Button onClick={() => { updateStatus(params.row, "CANCELLED", 5) }} variant="contained" color="error">Cancel</Button>
               : ""
             }
           </div>
@@ -145,7 +145,7 @@ export default function Orders() {
     }
   ]
 
-  const updateStatus = async (r, newStatus) => {
+  const updateStatus = async (r, newStatus, id) => {
     try {
       const data = { status: newStatus, id: r.id }
       const response = await axiosRequest.post(status_url, data)
@@ -153,7 +153,8 @@ export default function Orders() {
       if (status === 200) {
         const updated_rows = rows.map((row) => {
           if (row.id === r.id) {
-            row.status = newStatus
+            row.status.name = newStatus
+            row.status.id = id
           }
           return row
         })
