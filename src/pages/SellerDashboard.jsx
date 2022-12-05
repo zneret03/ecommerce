@@ -125,7 +125,7 @@ export default function SellerDashboard() {
 
           </div>
 
-          <div className="rounded h-96 drop-shadow bg-white px-5 py-3">
+          <div className="rounded h-96 drop-shadow bg-white px-5 py-3 overflow-auto">
             <p className="font-medium text-gray-600 mb-3">Top Selling Products</p>
             <div className="grid grid-cols-4 gap-y-2">
               <div className="col-span-3">
