@@ -227,7 +227,7 @@ export default function MyPurchase() {
                                             <p>{product.address}</p>
                                         </div>
 
-                                        {product.status === "SHIPPED" ?
+                                        {product.status.name === "SHIPPED" ?
                                             <button onClick={() => { receive(product.orderID) }} className="flex justify-center items-center bg-primary text-white px-4 py-2 rounded mt-2 md:mt-0">
                                                 <span>Order Received</span>
                                             </button>
