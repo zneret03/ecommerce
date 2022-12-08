@@ -10,7 +10,7 @@ export default function Search({ className, hidden }) {
     const path = filter ? `/products?keyword=${value}&filter=${filter}&page=1` : `/products?keyword=${value}&page=1`
 
     const search = () => {
-        navigate(path)
+        if (value) navigate(path)
     }
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function Search({ className, hidden }) {
             <input
                 type="text"
                 className="mr-2 w-full md:w-40 lg:w-80 px-4 py-2 text-primary bg-white border rounded-md focus:border-primary focus:outline-none"
-                placeholder="Search..."
+                placeholder="Search Products..."
                 value={value} onChange={(evt) => { setValue(evt.target.value) }}
                 onKeyDown={event => { if (event.key === 'Enter') { search() } }}
             />

@@ -15,8 +15,8 @@ const navItems = [
     },
     {
         id: 3,
-        title: "Kids",
-        name: "kids",
+        title: "Unisex",
+        name: "unisex",
     },
     {
         id: 4,
@@ -32,8 +32,13 @@ export default function HomeNavbar() {
     const url = keyword ? `/products?keyword=${keyword}&` : `/products?`
     const navigate = useNavigate()
 
-    const moveto = (path) => {
-        navigate(path)
+    const click = (name) => {
+        if (filter === name) {
+            navigate(`${url}&page=1`)
+        }
+        else {
+            navigate(`${url}filter=${name}&page=1`)
+        }
     }
 
     return (
@@ -43,7 +48,7 @@ export default function HomeNavbar() {
                     {navItems.map(type => {
                         return (
                             <li key={type.id}>
-                                <button onClick={() => moveto(`${url}filter=${type.name}&page=1`)} className={`${filter === type.name ? 'bg-primary text-white' : "text-gray-800"}
+                                <button onClick={() => click(type.name)} className={`${filter === type.name ? 'bg-primary text-white' : "text-gray-800"}
                                      lg:px-8 md:text-xl text-base font-medium p-5 hover:bg-primary hover:text-white`}>{type.title}</button>
                             </li>
                         )
