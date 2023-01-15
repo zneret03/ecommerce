@@ -2,7 +2,7 @@ import React from "react"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { axiosRequest } from "api"
-import { HomeNavbar, Navbar, Banner, FeatureProduct, Footer } from 'components'
+import { HomeNavbar, Navbar, Banner, FeatureProduct, Footer, BrowseProducts } from 'components'
 
 export default function Home() {
   const url = '/api/v1/user'
@@ -48,6 +48,7 @@ export default function Home() {
             <FeatureProduct filter={'recommended'} name={'Recommended Products'} />
             <FeatureProduct filter={'latest'} name={'Latest Products'} />
             <FeatureProduct filter={'shops'} name={'Browse Local Shops'} />
+            <BrowseProducts />
           </div>
           <Footer />
         </>

@@ -3,7 +3,7 @@ import React from "react"
 export default function ProductCard({ imageUrl, props }) {
     return (
         <a href={`/product/${props.id}`} >
-            <div className="m-1 group flex flex-col w-full lg:w-72 bg-white drop-shadow overflow-hidden inline-block hover:outline outline-primary">
+            <div className="m-1 group flex flex-col w-full lg:w-72 bg-white drop-shadow overflow-hidden hover:outline outline-primary z-10">
                 <div className="h-52 md:h-60 overflow-hidden">
                     <img className="object-cover w-full h-full" src={imageUrl} alt={`${props.productName}`} />
                 </div>

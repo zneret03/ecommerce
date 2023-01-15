@@ -24,3 +24,8 @@ button.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+:root {
+  --toastify-color-light: #EB4800;
+  --toastify-text-color-light: #fff;
+}
